@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION) {
-	header("Location: user.php");
+    header("Location: user.php");
 }
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ if ($_SESSION) {
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gradient-primary">
+<body>
 
 
     <div class="container">
@@ -45,37 +45,37 @@ if ($_SESSION) {
                                         <h1 class="h4 text-gray-900 mb-4">Log In</h1>
                                     </div>
                                     <?php
-									if (isset($_POST['login'])) {
-										include("koneksi.php");
+                                    if (isset($_POST['login'])) {
+                                        include("koneksi.php");
 
-										$username	= $_POST['username'];
-										$password	= md5($_POST['password']);
-										$level		= $_POST['level'];
+                                        $username    = $_POST['username'];
+                                        $password    = md5($_POST['password']);
+                                        $level        = $_POST['level'];
 
-										$query = mysqli_query($koneksi, "SELECT * FROM users WHERE username='$username' AND password='$password'");
-										if (mysqli_num_rows($query) == 0) {
-											echo '<div class="alert alert-danger">Upss...!!! Login gagal.</div>';
-										} else {
-											$row = mysqli_fetch_assoc($query);
+                                        $query = mysqli_query($koneksi, "SELECT * FROM users WHERE username='$username' AND password='$password'");
+                                        if (mysqli_num_rows($query) == 0) {
+                                            echo '<div class="alert alert-danger">Upss...!!! Login gagal.</div>';
+                                        } else {
+                                            $row = mysqli_fetch_assoc($query);
 
-											if ($row['level'] == 1 && $level == 1) {
-												$_SESSION['username'] = $username;
-												$_SESSION['level'] = 'gudang';
-												header("Location: admin/index.php?page=home");
-											} else if ($row['level'] == 2 && $level == 2) {
-												$_SESSION['username'] = $username;
-												$_SESSION['level'] = 'akuntansi';
-												header("Location: admin/index.php?page=home");
-											} else if ($row['level'] == 3 && $level == 3) {
-												$_SESSION['username'] = $username;
-												$_SESSION['level'] = 'manajer';
-												header("Location: admin/index.php?page=home");
-											} else {
-												echo '<div class="alert alert-danger">Upss...!!! Login gagal.</div>';
-											}
-										}
-									}
-									?>
+                                            if ($row['level'] == 1 && $level == 1) {
+                                                $_SESSION['username'] = $username;
+                                                $_SESSION['level'] = 'gudang';
+                                                header("Location: admin/index.php?page=home");
+                                            } else if ($row['level'] == 2 && $level == 2) {
+                                                $_SESSION['username'] = $username;
+                                                $_SESSION['level'] = 'akuntansi';
+                                                header("Location: admin/index.php?page=home");
+                                            } else if ($row['level'] == 3 && $level == 3) {
+                                                $_SESSION['username'] = $username;
+                                                $_SESSION['level'] = 'manajer';
+                                                header("Location: admin/index.php?page=home");
+                                            } else {
+                                                echo '<div class="alert alert-danger">Upss...!!! Login gagal.</div>';
+                                            }
+                                        }
+                                    }
+                                    ?>
                                     <form class="user" method="POST" action="">
                                         <div class="form-group">
                                             <input type="text" class="form-control" id="username" name="username"

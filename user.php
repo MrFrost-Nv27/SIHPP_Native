@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (empty($_SESSION)) {
-	header("Location: index.php");
+    header("Location: index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ if (empty($_SESSION)) {
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gradient-primary">
+<body>
 
     <div class="container">
 

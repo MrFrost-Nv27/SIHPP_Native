@@ -9841,7 +9841,7 @@ a:focus {
   }
 }
 .bg-login-image {
-  background: "img/logo.jpg";
+  background: url("../img/logo.jpg");
   background-position: center;
   background-size: cover;
 }
@@ -10239,4 +10239,10 @@ footer.sticky-footer .copyright {
 }
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
+}
+
+body {
+  background-image: url("../img/bgm.gif");
+  background-size: 400px;
+  background-repeat: repeat;
 }
