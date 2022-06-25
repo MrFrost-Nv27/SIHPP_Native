@@ -1,104 +1,54 @@
-<style type="text/css">
-.sidebar .sidebar-menu .treeview :hover{
-  background-color: #111;
-}
-</style>
+<div class="sidebar-heading">
+    Master Data
+</div>
 
-<aside class="main-sidebar bg-black">
-  <!-- sidebar          : style can be found in sidebar.less -->
-  <section class="sidebar bg-black">
-    <!-- Sidebar user panel -->
-    <!-- search form -->
-    <!-- sidebar menu   : : style can be found in sidebar.less -->
-    <ul class="sidebar-menu bg-black">
-      <!-- <li class         = "header text-center" style="margin-top: 15px;"> -->
-      <!-- <i class        = "glyphicon glyphicon-ok-sign" style="color:green;"></i><span> Signed in as <?php echo $nm_log; ?></span> -->
-      <!-- </li> -->
-      <li class="treeview" style="margin-top: 15px;">
-        <a href="index.php?page=home" style="color: white;">
-          <i class="glyphicon glyphicon-home"></i> <span>Beranda</span>
-        </a>
-      </li>
-      <li class="header bg-black-gradient">MASTER DATA</li>
-      <!-- <li class="treeview">
-        <a href="index.php?page=user&act=list" style="color: white;">
-          <i class="glyphicon glyphicon-tower"></i> <span>Pengguna</span>
-        </a>
-      </li> -->
-      <!-- <li id="treeview1" class="treeview">
-        <a href="#" style="color: white; background-color:#111;">
-          <i class="glyphicon glyphicon-user"></i> <span>Tenaga Kerja</span><i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu menu-open bg-black">
-          <li>
-            <div class="hitam" style="margin-left: 15px;">
-            <a href="index.php?page=tenaker&act=list" style="color: white;" class="bg-black"><i class="fa fa-circle-o"></i>&#8287;&#8287;&#8287;Data Tenaga Kerja</a>
-            </div>
-          </li>
-          <li>
-            <div class="hitam" style="margin-left: 15px;">
-            <a href="index.php?page=tenaker&act=list2" style="color: white;" class="bg-black"><i class="fa fa-circle-o"></i>&#8287;&#8287;&#8287;Biaya Tenaga Kerja</a>
-            </div>
-          </li>
-        </ul>
-      </li> -->
-      <li id="treeview" class="treeview">
-        <a href="#" style="color: white; background-color:#111;">
-          <i class="glyphicon glyphicon-folder-close"></i> <span>Bahan Baku</span><i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu menu-open bg-black">
-          <li>
-            <a href="index.php?page=bb&act=list"  style="color: white;" class="bg-black"><i class="fa fa-circle-o"></i>&#8287;&#8287;&#8287;Bahan Baku</a>
-          </li>
-          <li>
-            <a href="index.php?page=stok_bb&act=list"  style="color: white;" class="bg-black"><i class="fa fa-circle-o"></i>&#8287;&#8287;&#8287;Stok Bahan Baku</a>
-          </li>
-        </ul>
-      </li>
-      <li id="treeview2" class="treeview">
-        <a href="#" style="color: white; background-color:#111;">
-          <i class="glyphicon glyphicon-equalizer"></i> <span>Bahan Penolong</span><i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu menu-open bg-black">
-          <li>
-            <a href="index.php?page=bp&act=list"  style="color: white;" class="bg-black"><i class="fa fa-circle-o"></i>&#8287;&#8287;&#8287;Bahan Penolong</a>
-          </li>
-          <li>
-          <a href="index.php?page=stok_bp&act=list"  style="color: white;" class="bg-black"><i class="fa fa-circle-o"></i>&#8287;&#8287;&#8287;Stok Bahan Penolong</a>
-          </li>
-        </ul>
-      </li>
-      <li class="treeview">
-        <a href="index.php?page=overhead&act=list" style="color: white;">
-          <i class="glyphicon glyphicon-tasks"></i> <span>Overhead Pabrik</span>
-        </a>
-      </li>
-      <li id="treeview1" class="treeview">
-        <a href="#" style="color: white; background-color:#111;">
-          <i class="glyphicon glyphicon-user"></i> <span>Tenaga Kerja</span><i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu menu-open bg-black">
-          <li>
-            <div class="hitam" style="margin-left: 15px;">
-            <a href="index.php?page=tenaker&act=list" style="color: white;" class="bg-black"><i class="fa fa-circle-o"></i>&#8287;&#8287;&#8287;Data Tenaga Kerja</a>
-            </div>
-          </li>
-          <li>
-            <div class="hitam" style="margin-left: 15px;">
-            <a href="index.php?page=tenaker&act=list2" style="color: white;" class="bg-black"><i class="fa fa-circle-o"></i>&#8287;&#8287;&#8287;Biaya Tenaga Kerja</a>
-            </div>
-          </li>
-        </ul>
-      </li>
-     
-      <!-- <li class="header bg-black-gradient">LAPORAN</li>
-      <li class="treeview">
-        <a href="index.php?page=laporan&act=list" style="color: white;">
-          <i class="glyphicon glyphicon-list-alt"></i> <span>Laporan</span>
-        </a>
-      </li> -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuBB" aria-expanded="true"
+        aria-controls="menuBB">
+        <i class="fas fa-fw fa-toolbox"></i>
+        <span>Bahan Baku</span>
+    </a>
+    <div id="menuBB" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manajemen Bahan Baku:</h6>
+            <a class="collapse-item" href="index.php?page=bb&act=list">Data Bahan Baku</a>
+            <a class="collapse-item" href="index.php?page=stok_bb&act=list">Stok Bahan Baku</a>
+        </div>
+    </div>
+</li>
 
-    </ul>
-  </section>
-  <!-- /.sidebar -->
-</aside>
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuBP" aria-expanded="true"
+        aria-controls="menuBP">
+        <i class="fas fa-fw fa-tools"></i>
+        <span>Bahan Penolong</span>
+    </a>
+    <div id="menuBP" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manajemen Bahan Penolong:</h6>
+            <a class="collapse-item" href="index.php?page=bp&act=list">Data Bahan Penolong</a>
+            <a class="collapse-item" href="index.php?page=stok_bp&act=list">Stok Bahan Penolong</a>
+        </div>
+    </div>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="index.php?page=overhead&act=list">
+        <i class="fas fa-fw fa-bolt"></i>
+        <span>Overhead Pabrik</span></a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuTK" aria-expanded="true"
+        aria-controls="menuTK">
+        <i class="fas fa-fw fa-users"></i>
+        <span>Tenaga Kerja</span>
+    </a>
+    <div id="menuTK" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manajemen Tenaga Kerja:</h6>
+            <a class="collapse-item" href="index.php?page=tenaker&act=list">Data Tenaga Kerja</a>
+            <a class="collapse-item" href="index.php?page=tenaker&act=list2">Gaji Tenaga Kerja</a>
+        </div>
+    </div>
+</li>

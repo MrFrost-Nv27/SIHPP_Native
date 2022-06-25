@@ -62,6 +62,7 @@ $data_jumlah = [
 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../vendor/datatables/datatables.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -85,7 +86,7 @@ $data_jumlah = [
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#!">
+                <a class="nav-link" href="index.php?page=home">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -93,88 +94,17 @@ $data_jumlah = [
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Master Data
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuBB" aria-expanded="true"
-                    aria-controls="menuBB">
-                    <i class="fas fa-fw fa-toolbox"></i>
-                    <span>Bahan Baku</span>
-                </a>
-                <div id="menuBB" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manajemen Bahan Baku:</h6>
-                        <a class="collapse-item" href="#!">Data Bahan Baku</a>
-                        <a class="collapse-item" href="#!">Stok Bahan Baku</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuBP" aria-expanded="true"
-                    aria-controls="menuBP">
-                    <i class="fas fa-fw fa-tools"></i>
-                    <span>Bahan Penolong</span>
-                </a>
-                <div id="menuBP" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manajemen Bahan Penolong:</h6>
-                        <a class="collapse-item" href="#!">Data Bahan Penolong</a>
-                        <a class="collapse-item" href="#!">Stok Bahan Penolong</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#!">
-                    <i class="fas fa-fw fa-bolt"></i>
-                    <span>Overhead Pabrik</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuTK" aria-expanded="true"
-                    aria-controls="menuTK">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Tenaga Kerja</span>
-                </a>
-                <div id="menuTK" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manajemen Tenaga Kerja:</h6>
-                        <a class="collapse-item" href="#!">Data Tenaga Kerja</a>
-                        <a class="collapse-item" href="#!">Gaji Tenaga Kerja</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Master Proses
-            </div>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="#!">
-                    <i class="fas fa-fw fa-tractor"></i>
-                    <span>Produksi</span></a>
-            </li>
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Laporan
-            </div>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="#!">
-                    <i class="fas fa-fw fa-file-alt"></i>
-                    <span>Laporan</span></a>
-            </li>
+            <?php
+            if ($lv == 1) {
+                include 'menu_1.php';
+            } else if ($lv == 2) {
+                include 'menu_2.php';
+            } else if ($lv == 3) {
+                include 'menu_3.php';
+            } else if ($lv == 4) {
+                include 'menu_4.php';
+            }
+            ?>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -234,94 +164,9 @@ $data_jumlah = [
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard <?= ucwords(strtolower($_SESSION['level'])) ?></h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <?= day(date("N")) . ", " . date("d") . " " . month(date("n")) . " " . date("Y"); ?></a>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Bahan Baku</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?= $data_jumlah['bb'] ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-toolbox fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Bahan Penolong</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?= $data_jumlah['bp'] ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-tools fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tenaga
-                                                Kerja
-                                            </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?= $data_jumlah['tk'] ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Overhead Produksi</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?= $data_jumlah['op'] ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <?php
+                    include 'page.php';
+                    ?>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -363,7 +208,7 @@ $data_jumlah = [
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#!">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -380,15 +225,12 @@ $data_jumlah = [
 
     <!-- Page level plugins -->
     <script src="../vendor/chart.js/Chart.min.js"></script>
-    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables/datatables.min.js"></script>
 
     <script>
-    $(function() {
-        $(".datatable-init").DataTable({
-            "order": [
-                [<?php echo $order; ?>, "desc"]
-            ]
+    $(document).ready(function() {
+        $('.datatables-init').DataTable({
+            responsive: true
         });
     });
     </script>
