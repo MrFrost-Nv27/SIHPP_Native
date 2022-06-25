@@ -12,6 +12,36 @@ while ($r_log = mysqli_fetch_assoc($login)) {
     $nm_log                                  = $r_log['nama'];
     $lv                                      = $r_log['level'];
 }
+function month($month, $format = "mmmm")
+{
+    if ($format == "mmmm") {
+        $fm = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
+    } elseif ($format == "mmm") {
+        $fm = array("Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des");
+    }
+
+    return $fm[$month - 1];
+}
+function day($day, $format = "dddd")
+{
+    if ($format == "dddd") {
+        $fd = array("Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Minggu");
+    } elseif ($format == "ddd") {
+        $fd = array("Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min");
+    }
+
+    return $fd[$day - 1];
+}
+$data_bb = mysqli_query($koneksi, "SELECT * FROM bahan_baku");
+$data_bp = mysqli_query($koneksi, "SELECT * FROM bahan_penolong");
+$data_tk = mysqli_query($koneksi, "SELECT * FROM tenaker");
+$data_op = mysqli_query($koneksi, "SELECT * FROM overhead_pabrik");
+$data_jumlah = [
+    'bb' => mysqli_num_rows($data_bb),
+    'bp' => mysqli_num_rows($data_bp),
+    'tk' => mysqli_num_rows($data_tk),
+    'op' => mysqli_num_rows($data_op),
+];
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,7 +86,7 @@ while ($r_log = mysqli_fetch_assoc($login)) {
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="#!">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-home"></i>
                     <span>Dashboard</span></a>
             </li>
 
@@ -65,40 +95,56 @@ while ($r_log = mysqli_fetch_assoc($login)) {
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Master Data
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuBB" aria-expanded="true"
+                    aria-controls="menuBB">
+                    <i class="fas fa-fw fa-toolbox"></i>
+                    <span>Bahan Baku</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="menuBB" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="#!">Buttons</a>
-                        <a class="collapse-item" href="#!">Cards</a>
+                        <h6 class="collapse-header">Manajemen Bahan Baku:</h6>
+                        <a class="collapse-item" href="#!">Data Bahan Baku</a>
+                        <a class="collapse-item" href="#!">Stok Bahan Baku</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuBP" aria-expanded="true"
+                    aria-controls="menuBP">
+                    <i class="fas fa-fw fa-tools"></i>
+                    <span>Bahan Penolong</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
+                <div id="menuBP" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="#!">Colors</a>
-                        <a class="collapse-item" href="#!">Borders</a>
-                        <a class="collapse-item" href="#!">Animations</a>
-                        <a class="collapse-item" href="#!">Other</a>
+                        <h6 class="collapse-header">Manajemen Bahan Penolong:</h6>
+                        <a class="collapse-item" href="#!">Data Bahan Penolong</a>
+                        <a class="collapse-item" href="#!">Stok Bahan Penolong</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#!">
+                    <i class="fas fa-fw fa-bolt"></i>
+                    <span>Overhead Pabrik</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuTK" aria-expanded="true"
+                    aria-controls="menuTK">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Tenaga Kerja</span>
+                </a>
+                <div id="menuTK" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Manajemen Tenaga Kerja:</h6>
+                        <a class="collapse-item" href="#!">Data Tenaga Kerja</a>
+                        <a class="collapse-item" href="#!">Gaji Tenaga Kerja</a>
                     </div>
                 </div>
             </li>
@@ -108,42 +154,26 @@ while ($r_log = mysqli_fetch_assoc($login)) {
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Master Proses
             </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="#!">Login</a>
-                        <a class="collapse-item" href="#!">Register</a>
-                        <a class="collapse-item" href="#!">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="#!">404 Page</a>
-                        <a class="collapse-item" href="#!">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="#!">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="#!">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <i class="fas fa-fw fa-tractor"></i>
+                    <span>Produksi</span></a>
+            </li>
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Laporan
+            </div>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="#!">
+                    <i class="fas fa-fw fa-file-alt"></i>
+                    <span>Laporan</span></a>
             </li>
 
             <!-- Divider -->
@@ -171,6 +201,7 @@ while ($r_log = mysqli_fetch_assoc($login)) {
                         <i class="fa fa-bars"></i>
                     </button>
 
+                    <h3>Selamat Datang, <?= $_SESSION['nama'] ?></h3>
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -180,7 +211,8 @@ while ($r_log = mysqli_fetch_assoc($login)) {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['nama'] ?></span>
                                 <img class="img-profile rounded-circle" src="../img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -204,9 +236,9 @@ while ($r_log = mysqli_fetch_assoc($login)) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard <?= ucwords(strtolower($_SESSION['level'])) ?></h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <?= day(date("N")) . ", " . date("d") . " " . month(date("n")) . " " . date("Y"); ?></a>
                     </div>
 
                     <!-- Content Row -->
@@ -219,11 +251,12 @@ while ($r_log = mysqli_fetch_assoc($login)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                Bahan Baku</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?= $data_jumlah['bb'] ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <i class="fas fa-toolbox fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -237,11 +270,12 @@ while ($r_log = mysqli_fetch_assoc($login)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                Bahan Penolong</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?= $data_jumlah['bp'] ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-tools fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -254,12 +288,14 @@ while ($r_log = mysqli_fetch_assoc($login)) {
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tenaga
+                                                Kerja
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?= $data_jumlah['tk'] ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <i class="fas fa-users fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -273,11 +309,12 @@ while ($r_log = mysqli_fetch_assoc($login)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                Overhead Produksi</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?= $data_jumlah['op'] ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-bolt fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>

@@ -61,14 +61,17 @@ if ($_SESSION) {
                                             if ($row['level'] == 1 && $level == 1) {
                                                 $_SESSION['username'] = $username;
                                                 $_SESSION['level'] = 'gudang';
+                                                $_SESSION['nama'] = $row['nama'];
                                                 header("Location: admin/index.php?page=home");
                                             } else if ($row['level'] == 2 && $level == 2) {
                                                 $_SESSION['username'] = $username;
                                                 $_SESSION['level'] = 'akuntansi';
+                                                $_SESSION['nama'] = $row['nama'];
                                                 header("Location: admin/index.php?page=home");
                                             } else if ($row['level'] == 3 && $level == 3) {
                                                 $_SESSION['username'] = $username;
                                                 $_SESSION['level'] = 'manajer';
+                                                $_SESSION['nama'] = $row['nama'];
                                                 header("Location: admin/index.php?page=home");
                                             } else {
                                                 echo '<div class="alert alert-danger">Upss...!!! Login gagal.</div>';
