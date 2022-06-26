@@ -381,13 +381,12 @@ switch ($_GET['act']) {
                     <select class="form-control" name="id_tenaker">
                       <option value="0">Tenaga Kerja</option>
                       <?php
-                      $tenaker = mysqli_query($koneksi, "SELECT * FROM tenaker where bag_tenaker='$nm_produk'");
-
-                      while ($rtenaker = mysqli_fetch_assoc($tenaker)) {
-
+                      $tenaker = mysqli_query($koneksi, "SELECT * FROM tenaker");
+                      while ($t = mysqli_fetch_assoc($tenaker)) {
+                        echo "<option value='$t[id_tenaker]'>$t[nm_tenaker]</option>";
+                      }
                       ?>
-                        <option value="<?php echo $rtenaker['id_tenaker']; ?>"><?php echo $rtenaker['nm_tenaker']; ?></option>
-                      <?php } ?>
+                      
                     </select>
                   </div>
                   <button type="submit" class="btn btn-primary active"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Tambah</button>

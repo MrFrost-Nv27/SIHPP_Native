@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jun 2022 pada 02.05
--- Versi server: 10.4.20-MariaDB
--- Versi PHP: 8.0.8
+-- Waktu pembuatan: 26 Jun 2022 pada 05.26
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,21 +40,8 @@ CREATE TABLE `bahan_baku` (
 --
 
 INSERT INTO `bahan_baku` (`id_bb`, `kd_bb`, `nm_bb`, `hrg_bb`, `satuan_bb`) VALUES
-(27, 'BB27', 'Kayu \"A\"', 75000, 'Unit'),
-(28, 'BB28', 'Kayu \"B\"', 175000, 'Unit'),
-(29, 'BB29', 'Kayu \"C\"', 41000, 'Unit'),
-(33, 'BB33', 'Kayu \"F\"', 109000, 'Unit'),
-(34, 'BB34', 'Kayu \"G\"', 620000, 'Unit'),
-(35, 'BB35', 'Triplek', 70000, 'Unit'),
-(36, 'BB36', 'Kaca Rasa', 50000, 'Unit'),
-(0, 'BB0', 'Max creamer', 30000, 'gram'),
-(0, 'BB0', 'Max creamer', 32000, 'box'),
-(0, 'BB0', 'teh', 43000, 'gram'),
-(0, 'BB0', 'teh', 43000, 'gram'),
-(0, 'BB0', 'Max creamer', 32000, 'box'),
-(0, 'BB0', 'teh', 43000, 'gram'),
-(0, 'BB0', 'gula cair', 20000, 'kg'),
-(0, 'BB0', 'teh', 9000, 'gram');
+(1, 'BB1', 'KAYU A', 1000, '2*4'),
+(2, 'BB2', 'KAYU B', 2000, '2*4');
 
 -- --------------------------------------------------------
 
@@ -75,16 +62,7 @@ CREATE TABLE `bahan_penolong` (
 --
 
 INSERT INTO `bahan_penolong` (`id_bp`, `kd_bp`, `nm_bp`, `hrg_bp`, `satuan_bp`) VALUES
-(5, 'BP5', 'Paku 7 cm', 180000, 'Box'),
-(6, 'BP6', 'Lem Foxi', 30000, 'Bungkus'),
-(7, 'BP7', 'Paku 5 cm', 150000, 'Box'),
-(8, 'BP8', 'Lem Fox', 15000, 'Bungkus'),
-(9, 'BP9', 'Cat Impra', 55000, 'Liter'),
-(10, 'BP10', 'Cat Clear', 50000, 'Liter'),
-(11, 'BP11', 'Cat Impra Sending', 50000, 'Liter'),
-(12, 'BP12', 'Tenner Super', 18000, 'Liter'),
-(0, 'BP0', 'cup', 700, 'pcs'),
-(0, 'BP0', 'es batu kristal', 700, 'kantong');
+(1, 'BP1', 'Hncaplas', 1000, 'pcs');
 
 -- --------------------------------------------------------
 
@@ -110,15 +88,10 @@ CREATE TABLE `detail_produksi` (
 --
 
 INSERT INTO `detail_produksi` (`tanggal`, `nmr_produksi`, `jml_produksi`, `kode`, `nama`, `harga`, `keterangan`, `jumlah`, `total`, `lvl`) VALUES
-('2021-02-20', 1613548462, 100, 'BOP1', 'Biaya Listrik Dan Air', 525000, '10%', 100, 525, 'BOP'),
-('2021-02-20', 1613548462, 100, '1', 'Yasar Wicaksono', 20000, 'Meja', 100, 2000000, 'BTK'),
-('2021-02-20', 1613548462, 100, 'BP4', 'Paku 10 cm', 210000, 'Box', 5, 1050000, 'BBP'),
-('2021-02-20', 1613548462, 100, 'BP6', 'Lem Foxi', 30000, 'Bungkus', 5, 150000, 'BBP'),
-('2021-02-20', 1613548462, 100, 'BB27', 'Kayu \"A\"', 75000, 'Unit', 100, 7500000, 'BBB'),
-('2021-02-27', 1614401122, 200, 'BP6', 'Lem Foxi', 30000, 'Bungkus', 10, 300000, 'BBP'),
-('2021-02-27', 1614401122, 200, 'BP5', 'Paku 7 cm', 180000, 'Box', 10, 1800000, 'BBP'),
-('2021-02-27', 1614401122, 200, '7', 'Reform', 15000, 'Kusen Pintu', 200, 3000000, 'BTK'),
-('2021-02-27', 1614401122, 200, 'BOP1', 'Biaya Listrik Dan Air', 525000, '10%', 200, 263, 'BOP');
+('2022-06-26', 1656213480, 1, 'BB1', 'KAYU A', 1000, '2*4', 1, 1000, 'BBB'),
+('2022-06-26', 1656213480, 1, 'BP1', 'Hncaplas', 1000, 'pcs', 0, 50, 'BBP'),
+('2022-06-26', 1656213480, 1, '1', 'Angga', 10000, 'Meja', 1, 10000, 'BTK'),
+('2022-06-26', 1656213480, 1, 'BOP1', 'overhead1', 2000, '10%', 1, 200, 'BOP');
 
 -- --------------------------------------------------------
 
@@ -140,10 +113,7 @@ CREATE TABLE `overhead_pabrik` (
 --
 
 INSERT INTO `overhead_pabrik` (`kd_overp`, `nm_overp`, `by_overp`, `ket_overp`, `tgl_overp`, `id_overp`) VALUES
-('BOP1', 'Biaya Listrik Dan Air', 525000, 'Biaya listrik dan air perbulan', '2021-02-16', 1),
-('BOP0', 'penyusutahn mesin', 770000, 'mesin sealer', '2022-05-27', 0),
-('BOP0', 'penyusutahn mesin', 770000, 'mesin sealer', '2022-05-28', 0),
-('BOP0', 'penyusutahn mesin', 770000, 'mesin sealer', '2022-05-31', 0);
+('BOP1', 'overhead1', 2000, 'overheda ', '2022-06-26', 1);
 
 -- --------------------------------------------------------
 
@@ -166,21 +136,8 @@ CREATE TABLE `persediaan_bahan_baku` (
 --
 
 INSERT INTO `persediaan_bahan_baku` (`tgl_pb`, `kd_pb`, `nm_pb`, `sat_pb`, `hrg_pb`, `stok_pb`, `tot_pb`) VALUES
-('2021-02-20', 'BB27', 'Kayu \"A\"', 'Unit', 75000, 200, 22500000),
-('2021-02-27', 'BB28', 'Kayu \"B\"', 'Unit', 175000, 200, 35000000),
-('2021-02-16', 'BB29', 'Kayu \"C\"', 'Unit', 41000, 200, 8200000),
-('2021-02-16', 'BB33', 'Kayu \"F\"', 'Unit', 109000, 250, 27250000),
-('2021-02-27', 'BB34', 'Kayu \"G\"', 'Unit', 620000, 50, 31000000),
-('2021-02-16', 'BB35', 'Triplek', 'Unit', 70000, 10, 700000),
-('2021-02-26', 'BB36', 'Kaca Rasa', 'Unit', 50000, 100, 5000000),
-('2022-05-31', 'BB0', 'Max creamer', 'gram', 30000, 21, 100000),
-('2022-05-31', 'BB0', 'Max creamer', 'box', 32000, 15, 100000),
-('2022-05-31', 'BB0', 'teh', 'gram', 43000, 13, 100000),
-('2022-05-31', 'BB0', 'teh', 'gram', 43000, 10, 100000),
-('2022-05-31', 'BB0', 'Max creamer', 'box', 32000, 10, 100000),
-('2022-05-31', 'BB0', 'teh', 'gram', 43000, 5, 100000),
-('2022-05-31', 'BB0', 'gula cair', 'kg', 20000, 5, 100000),
-('2022-05-31', 'BB0', 'teh', 'gram', 9000, 0, 0);
+('2022-06-26', 'BB1', 'KAYU A', '2*4', 1000, 99, 100000),
+('2022-06-26', 'BB2', 'KAYU B', '2*4', 2000, 10, 20000);
 
 -- --------------------------------------------------------
 
@@ -203,16 +160,7 @@ CREATE TABLE `persediaan_bahan_penolong` (
 --
 
 INSERT INTO `persediaan_bahan_penolong` (`tgl_pb`, `kd_pb`, `nm_pb`, `sat_pb`, `hrg_pb`, `stok_pb`, `tot_pb`) VALUES
-('2022-05-23', 'BP5', 'Paku 7 cm', 'Box', 180000, 15, 2700000),
-('2021-02-27', 'BP6', 'Lem Foxi', 'Bungkus', 30000, 20, 900000),
-('2021-02-16', 'BP7', 'Paku 5 cm', 'Box', 150000, 2, 300000),
-('2021-02-27', 'BP8', 'Lem Fox', 'Bungkus', 15000, 50, 750000),
-('2021-02-16', 'BP9', 'Cat Impra', 'Liter', 55000, 200, 11000000),
-('2021-02-16', 'BP10', 'Cat Clear', 'Liter', 50000, 100, 5000000),
-('2021-02-16', 'BP11', 'Cat Impra Sending', 'Liter', 50000, 100, 5000000),
-('2021-02-16', 'BP12', 'Tenner Super', 'Liter', 18000, 100, 1800000),
-('2022-05-31', 'BP0', 'cup', 'pcs', 700, 107, 4900),
-('2022-05-31', 'BP0', 'es batu kristal', 'kantong', 700, 7, 4900);
+('2022-06-26', 'BP1', 'Hncaplas', 'pcs', 1000, 10, 10000);
 
 -- --------------------------------------------------------
 
@@ -240,18 +188,7 @@ CREATE TABLE `produksi` (
 --
 
 INSERT INTO `produksi` (`id_produksi`, `nmr_produksi`, `nm_produk`, `jml_produksi`, `bbb`, `bbp`, `btk`, `bop`, `hpp`, `tgl_produksi`, `periode`, `tahun`) VALUES
-(1, 1613548462, 'Meja', 100, 7500000, 1200000, 2000000, 525, 10700525, '2021-02-17', 'Februari', 2021),
-(3, 1614401122, 'Kusen Pintu', 200, 0, 2100000, 3000000, 262, 5100262, '2021-02-27', 'Februari', 2021),
-(0, 1649650110, 'Kusen Pintu', 0, 0, 0, 0, 0, 0, '2022-04-11', 'April', 2022),
-(0, 1649650150, 'Pintu', 6, 0, 0, 0, 0, 0, '2022-04-11', 'April', 2022),
-(0, 1653301419, 'Jendela', 5, 0, 0, 0, 0, 0, '2022-05-23', 'Mei', 2022),
-(0, 1653301423, 'Kusen Pintu', 0, 0, 0, 0, 0, 0, '2022-05-23', 'Mei', 2022),
-(0, 1653478395, 'Pintu', 2, 0, 0, 0, 0, 0, '2022-05-25', 'Mei', 2022),
-(0, 1653704233, 'Kursi', 5, 0, 0, 0, 0, 0, '2022-05-28', 'Mei', 2022),
-(0, 1653704406, 'Lemari', 4, 0, 0, 0, 0, 0, '2022-05-28', 'Mei', 2022),
-(0, 1654001286, 'Meja', 100, 0, 0, 0, 0, 0, '2022-05-31', 'Mei', 2022),
-(0, 1654065424, 'Jendela', 100, 0, 0, 0, 0, 0, '2022-06-01', 'Juni', 2022),
-(0, 1654339731, 'Meja', 3, 0, 0, 0, 0, 0, '2022-06-04', 'Juni', 2022);
+(1, 1656213480, 'Kusen Pintu', 1, 1000, 50, 10000, 200, 11250, '2022-06-26', 'Juni', 2022);
 
 -- --------------------------------------------------------
 
@@ -272,14 +209,7 @@ CREATE TABLE `tenaker` (
 --
 
 INSERT INTO `tenaker` (`id_tenaker`, `nm_tenaker`, `bag_tenaker`, `upah_tenaker`, `ttl_pendapatan`) VALUES
-(1, 'Yasar Wicaksono', 'Meja', 20000, 2000000),
-(5, 'Yassar', 'Meja', 20000, 0),
-(7, 'Reform', 'Kusen Pintu', 15000, 3000000),
-(0, 'Nais', 'Lemari', 50000, 0),
-(0, 'nida', 'Lemari', 2000, 0),
-(0, 'gilang', 'Kusen Jendela', 5000, 0),
-(0, 'fira', 'Meja', 700, 0),
-(0, 'merry', 'Jendela', 300, 0);
+(1, 'Angga', 'Meja', 10000, 10000);
 
 -- --------------------------------------------------------
 
@@ -310,6 +240,36 @@ INSERT INTO `users` (`id`, `username`, `password`, `nama`, `email`, `level`) VAL
 --
 
 --
+-- Indeks untuk tabel `bahan_baku`
+--
+ALTER TABLE `bahan_baku`
+  ADD PRIMARY KEY (`id_bb`);
+
+--
+-- Indeks untuk tabel `bahan_penolong`
+--
+ALTER TABLE `bahan_penolong`
+  ADD PRIMARY KEY (`id_bp`);
+
+--
+-- Indeks untuk tabel `overhead_pabrik`
+--
+ALTER TABLE `overhead_pabrik`
+  ADD PRIMARY KEY (`id_overp`);
+
+--
+-- Indeks untuk tabel `produksi`
+--
+ALTER TABLE `produksi`
+  ADD PRIMARY KEY (`id_produksi`);
+
+--
+-- Indeks untuk tabel `tenaker`
+--
+ALTER TABLE `tenaker`
+  ADD PRIMARY KEY (`id_tenaker`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -318,6 +278,36 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `bahan_baku`
+--
+ALTER TABLE `bahan_baku`
+  MODIFY `id_bb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `bahan_penolong`
+--
+ALTER TABLE `bahan_penolong`
+  MODIFY `id_bp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `overhead_pabrik`
+--
+ALTER TABLE `overhead_pabrik`
+  MODIFY `id_overp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `produksi`
+--
+ALTER TABLE `produksi`
+  MODIFY `id_produksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `tenaker`
+--
+ALTER TABLE `tenaker`
+  MODIFY `id_tenaker` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

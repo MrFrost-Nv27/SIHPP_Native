@@ -16,9 +16,7 @@ if ($_SESSION) {
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -43,6 +41,7 @@ if ($_SESSION) {
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Log In</h1>
+                                        <p class="text-capitalize ">Masukan Username dan Password dengan benar !</p>
                                     </div>
                                     <?php
                                     if (isset($_POST['login'])) {
@@ -81,13 +80,10 @@ if ($_SESSION) {
                                     ?>
                                     <form class="user" method="POST" action="">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="username" name="username"
-                                                aria-describedby="usernamehelp" placeholder="Masukkan Username anda"
-                                                required>
+                                            <input type="text" class="form-control" id="username" name="username" aria-describedby="usernamehelp" placeholder="Masukkan Username anda" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                placeholder="Password" required>
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="level" id="level" required>
@@ -97,12 +93,12 @@ if ($_SESSION) {
                                                 <option value="3">Manajer</option>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block" name="login">
+                                        <button type="submit" class="btn btn-success btn-user btn-block" name="login">
                                             Login
                                         </button>
                                     </form>
                                     <p class="text-center mt-4 mb-0">
-                                        Copyright &copy; 2022
+                                        Nais Rachmawati &copy; 2022
                                     </p>
                                 </div>
                             </div>
