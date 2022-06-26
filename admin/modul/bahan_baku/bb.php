@@ -6,11 +6,11 @@ $aksi = "modul/bahan_baku/aksi_bb.php";
 $model = mysqli_query($koneksi, "SELECT * FROM bahan_baku");
 $data = array();
 while ($fetch = mysqli_fetch_assoc($model)) {
-  $data[] = $fetch; //result dijadikan array 
+    $data[] = $fetch; //result dijadikan array 
 }
 switch ($_GET['act']) {
 
-  case "list":
+    case "list":
 ?>
 
 <ol class="breadcrumb" style="background-color: white;">
@@ -20,7 +20,7 @@ switch ($_GET['act']) {
     <li class="breadcrumb-item active">Daftar Bahan Baku</li>
 </ol>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <h1 class="h3 mb-0 text-gray-800">Manajemen Bahan Baku</h1>
     <a href="index.php?page=bb&act=tambah" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
 </div>
@@ -44,9 +44,9 @@ switch ($_GET['act']) {
                         </thead>
                         <tbody>
                             <?php
-                  if ($data) :
-                    $no = 1;
-                    foreach ($data as $bb) : ?>
+                                    if ($data) :
+                                        $no = 1;
+                                        foreach ($data as $bb) : ?>
                             <tr>
                                 <td><?= $no ?></td>
                                 <td><?= $bb['nm_bb'] ?></td>
@@ -64,9 +64,9 @@ switch ($_GET['act']) {
                                 </td>
                             </tr>
                             <?php
-                      $no++;
-                    endforeach;
-                  endif; ?>
+                                            $no++;
+                                        endforeach;
+                                    endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -75,16 +75,16 @@ switch ($_GET['act']) {
     </div>
 </div>
 <?php
-    break;
+        break;
 
-  case "tambah":
-  ?>
+    case "tambah":
+    ?>
 <ol class="breadcrumb" style="background-color: white;">
-    <li><a href="#">Master Data</a></li>
-    <li><a href="#">Bahan-Bahan</a></li>
-    <li><a href="#">Bahan Baku</a></li>
-    <li><a href="index.php?page=bb&act=list">Daftar Bahan Baku</a></li>
-    <li class="active">Tambah Bahan Baku</li>
+    <li class="breadcrumb-item"><a href="#">Master Data</a></li>
+    <li class="breadcrumb-item"><a href="#">Bahan-Bahan</a></li>
+    <li class="breadcrumb-item"><a href="#">Bahan Baku</a></li>
+    <li class="breadcrumb-item"><a href="index.php?page=bb&act=list">Daftar Bahan Baku</a></li>
+    <li class="breadcrumb-item active">Tambah Bahan Baku</li>
 </ol>
 <div class="row">
     <div class="col-md-12">
@@ -98,24 +98,27 @@ switch ($_GET['act']) {
                         <div class="form-group">
                             <label for="satu" class="col-sm-2 control-label">Nama Bahan Baku</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" placeholder="Nama Bahan Baku" name="nm_bb">
+                                <input type="text" class="form-control" placeholder="Nama Bahan Baku" name="nm_bb"
+                                    required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="dua" class="col-sm-2 control-label">Harga Bahan Baku</label>
                             <div class="col-sm-4">
                                 <div class="input-group">
-                                    <div class="input-group-addon">Rp.</div>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Rp. </span>
+                                    </div>
                                     <input type="number" class="form-control" placeholder="Harga per satuan"
-                                        name="hrg_bb">
-                                    <div class="input-group-addon">.00</div>
+                                        name="hrg_bb" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tiga" class="col-sm-2 control-label">Satuan</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" placeholder="Ukuran satuan" name="satuan_bb">
+                                <input type="text" class="form-control" placeholder="Ukuran satuan" name="satuan_bb"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -136,19 +139,19 @@ switch ($_GET['act']) {
     </div>
 </div>
 <?php
-    break;
+        break;
 
 
-  case "edit":
-    $edit                       = mysqli_query($koneksi, "SELECT * FROM bahan_baku WHERE id_bb='$_GET[id]'");
-    while ($r    = mysqli_fetch_assoc($edit)) {
-      $id_bb                      = $r['id_bb'];
-      $kd_bb                      = $r['kd_bb'];
-      $nm_bb                          = $r['nm_bb'];
-      $hrg_bb                         = $r['hrg_bb'];
-      $satuan_bb                         = $r['satuan_bb'];
-    }
-  ?>
+    case "edit":
+        $edit                       = mysqli_query($koneksi, "SELECT * FROM bahan_baku WHERE id_bb='$_GET[id]'");
+        while ($r    = mysqli_fetch_assoc($edit)) {
+            $id_bb                      = $r['id_bb'];
+            $kd_bb                      = $r['kd_bb'];
+            $nm_bb                          = $r['nm_bb'];
+            $hrg_bb                         = $r['hrg_bb'];
+            $satuan_bb                         = $r['satuan_bb'];
+        }
+    ?>
 <ol class="breadcrumb" style="background-color: white;">
     <li><a href="#">Master Data</a></li>
     <li><a href="#">Bahan-Bahan</a></li>
@@ -205,6 +208,6 @@ switch ($_GET['act']) {
     </div>
 </div>
 <?php
-    break;
+        break;
 }
 ?>

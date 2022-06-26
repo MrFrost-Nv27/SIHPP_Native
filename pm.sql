@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Jun 2022 pada 05.26
+-- Waktu pembuatan: 26 Jun 2022 pada 05.47
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -91,7 +91,8 @@ INSERT INTO `detail_produksi` (`tanggal`, `nmr_produksi`, `jml_produksi`, `kode`
 ('2022-06-26', 1656213480, 1, 'BB1', 'KAYU A', 1000, '2*4', 1, 1000, 'BBB'),
 ('2022-06-26', 1656213480, 1, 'BP1', 'Hncaplas', 1000, 'pcs', 0, 50, 'BBP'),
 ('2022-06-26', 1656213480, 1, '1', 'Angga', 10000, 'Meja', 1, 10000, 'BTK'),
-('2022-06-26', 1656213480, 1, 'BOP1', 'overhead1', 2000, '10%', 1, 200, 'BOP');
+('2022-06-26', 1656213480, 1, 'BOP1', 'overhead1', 2000, '10%', 1, 200, 'BOP'),
+('2022-06-26', 1656214886, 3, 'BB1', 'KAYU A', 1000, '2*4', 3, 3000, 'BBB');
 
 -- --------------------------------------------------------
 
@@ -136,7 +137,7 @@ CREATE TABLE `persediaan_bahan_baku` (
 --
 
 INSERT INTO `persediaan_bahan_baku` (`tgl_pb`, `kd_pb`, `nm_pb`, `sat_pb`, `hrg_pb`, `stok_pb`, `tot_pb`) VALUES
-('2022-06-26', 'BB1', 'KAYU A', '2*4', 1000, 99, 100000),
+('2022-06-26', 'BB1', 'KAYU A', '2*4', 1000, 96, 100000),
 ('2022-06-26', 'BB2', 'KAYU B', '2*4', 2000, 10, 20000);
 
 -- --------------------------------------------------------
@@ -188,7 +189,8 @@ CREATE TABLE `produksi` (
 --
 
 INSERT INTO `produksi` (`id_produksi`, `nmr_produksi`, `nm_produk`, `jml_produksi`, `bbb`, `bbp`, `btk`, `bop`, `hpp`, `tgl_produksi`, `periode`, `tahun`) VALUES
-(1, 1656213480, 'Kusen Pintu', 1, 1000, 50, 10000, 200, 11250, '2022-06-26', 'Juni', 2022);
+(1, 1656213480, 'Kusen Pintu', 1, 1000, 50, 10000, 200, 11250, '2022-06-26', 'Juni', 2022),
+(2, 1656214886, 'Kusen Jendela', 3, 3000, 0, 0, 0, 3000, '2022-06-26', 'Juni', 2022);
 
 -- --------------------------------------------------------
 
@@ -301,7 +303,7 @@ ALTER TABLE `overhead_pabrik`
 -- AUTO_INCREMENT untuk tabel `produksi`
 --
 ALTER TABLE `produksi`
-  MODIFY `id_produksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_produksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tenaker`

@@ -1,4 +1,6 @@
 <?php
+
+// date('Y-m-d H:i:s') 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 session_start();
 if (empty($_SESSION)) {
@@ -6,16 +8,19 @@ if (empty($_SESSION)) {
 }
 extract($_POST);
 include 'koneksi.php';
-$username                                 = $_SESSION['username'];
-$login                                    = mysqli_query($koneksi, "SELECT * FROM users where username='$username'");
+$username = $_SESSION['username'];
+$login = mysqli_query($koneksi, "SELECT * FROM users where username='$username'");
 while ($r_log = mysqli_fetch_assoc($login)) {
-    $nm_log                                  = $r_log['nama'];
-    $lv                                      = $r_log['level'];
+    $nm_log = $r_log['nama'];
+    $lv = $r_log['level'];
 }
 function month($month, $format = "mmmm")
 {
     if ($format == "mmmm") {
-        $fm = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
+        $fm = array(
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
+            "November", "Desember"
+        );
     } elseif ($format == "mmm") {
         $fm = array("Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des");
     }
