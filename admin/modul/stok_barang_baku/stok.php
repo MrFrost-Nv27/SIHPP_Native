@@ -2,7 +2,7 @@
 include "config/class_paging.php";
 include "koneksi.php";
 $aksi                           = "modul/stok_barang_baku/aksi_stok.php";
-$model = mysqli_query($koneksi, "SELECT * FROM bahan_baku");
+$model = mysqli_query($koneksi, "SELECT * FROM bahan_baku INNER JOIN persediaan_bahan_baku ON bahan_baku.kd_bb=persediaan_bahan_baku.kd_pb");
 $data = array();
 while ($fetch = mysqli_fetch_assoc($model)) {
     $data[] = $fetch; //result dijadikan array 
@@ -11,7 +11,7 @@ switch ($_GET['act']) {
 
     case "tambah":
         try {
-            $edit = mysqli_query($koneksi, "SELECT * FROM bahan_baku WHERE id_bb ='$_GET[id]'");
+            $edit = mysqli_query($koneksi, "SELECT * FROM bahan_baku INNER JOIN persediaan_bahan_baku ON bahan_baku.kd_bb=persediaan_bahan_baku.kd_pb WHERE id_bb ='$_GET[id]'");
             $bahan_baku = mysqli_fetch_assoc($edit);
         } catch (\Throwable $th) {
             var_dump($th);
@@ -30,14 +30,14 @@ switch ($_GET['act']) {
             <div class="box-header with-border">
                 <form class='form-horizontal' id='registerHere' method='post'
                     action='<?php echo $aksi; ?>?page=aksi_stok_bb&act=edit'>
-                    <input type="hidden" class="form-control" name="id" value="<?= $bahan_baku['id_bb']; ?>">
+                    <input type="hidden" class="form-control" name="kode" value="<?= $bahan_baku['kd_bb']; ?>">
                     <input type="hidden" class="form-control" name="harga" value="<?= $bahan_baku['hrg_bb']; ?>">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="satu" class="col-sm-3 control-label">Jumlah Bahan di Gudang</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" name="stok_asli" placeholder="Jumlah Bahan"
-                                    value="<?= $bahan_baku['stok_bb']; ?>" readonly>
+                                    value="<?= $bahan_baku['stok_pb']; ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -106,8 +106,8 @@ switch ($_GET['act']) {
                                 <td><?= $bb['tgl_pb'] ?></td>
                                 <td><?= $bb['nm_bb'] ?></td>
                                 <td class="text-right">Rp. <?= number_format($bb['hrg_bb'], 2) ?></td>
-                                <td><?= $bb['stok_bb'] ?></td>
-                                <td class="text-right">Rp. <?= number_format($bb['tot_bb'], 2) ?></td>
+                                <td><?= $bb['stok_pb'] ?></td>
+                                <td class="text-right">Rp. <?= number_format($bb['tot_pb'], 2) ?></td>
                                 <td class="text-center">
                                     <a href="?page=stok_bb&act=tambah&id=<?= $bb['id_bb'] ?>"
                                         class="btn btn-success btn-circle">
@@ -136,7 +136,7 @@ switch ($_GET['act']) {
 
     case "lihat":
         try {
-            $edit = mysqli_query($koneksi, "SELECT * FROM bahan_baku WHERE id_bb ='$_GET[id]'");
+            $edit = mysqli_query($koneksi, "SELECT * FROM bahan_baku INNER JOIN persediaan_bahan_baku ON bahan_baku.kd_bb=persediaan_bahan_baku.kd_pb WHERE id_bb ='$_GET[id]'");
             $bahan_baku = mysqli_fetch_assoc($edit);
         } catch (\Throwable $th) {
             var_dump($th);
@@ -196,7 +196,7 @@ switch ($_GET['act']) {
                             <label for="satu" class="col-sm-2 control-label">Jumlah Bahan</label>
                             <div class="col-sm-4">
                                 <p class="form-control-static" style="margin-bottom: -15px;">:
-                                    <?= $bahan_baku['stok_bb'] ?>
+                                    <?= $bahan_baku['stok_pb'] ?>
                                 </p>
                             </div>
                         </div>
@@ -204,7 +204,7 @@ switch ($_GET['act']) {
                             <label for="satu" class="col-sm-2 control-label">Total Harga</label>
                             <div class="col-sm-4">
                                 <p class="form-control-static">: Rp.
-                                    <?= number_format($bahan_baku['tot_bb'], 0, ',', '.') ?>
+                                    <?= number_format($bahan_baku['tot_pb'], 0, ',', '.') ?>
                                 </p>
                             </div>
                         </div>
