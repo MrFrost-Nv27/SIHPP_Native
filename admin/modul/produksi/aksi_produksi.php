@@ -19,13 +19,13 @@ $nmr_produksi = time();
 $tgl_produksi = date('Y-m-d');
 $tahun = date('Y');
 $periode = month(date("n"));
-$kd_bb = $_POST['kd_bb'];
-$kd_bp = $_POST['kd_bp'];
-$id_tenaker = $_POST['id_tenaker'];
-$kd_overp = $_POST['kd_overp'];
-$nmr = $_POST['nmr'];
-$jml = $_POST['jml'];
 
+$kd_bb = isset($_POST['kd_bb']) ? $_POST['kd_bb'] : '';
+$kd_bp = isset($_POST['kd_bp']) ? $_POST['kd_bp'] : '';
+$id_tenaker = isset($_POST['id_tenaker']) ? $_POST['id_tenaker'] : '';
+$kd_overp = isset($_POST['kd_overp']) ? $_POST['kd_overp'] : '';
+$nmr = isset($_POST['nmr']) ? $_POST['nmr'] : '';
+$jml = isset($_POST['jml']) ? $_POST['jml'] : '';
 
 if ($module == 'aksi_produksi' and $act == 'tambah') {
 	$tampil = mysqli_query($koneksi, "SELECT * FROM produksi where nm_produk='$nm_produk' and periode='$periode' and tahun='$tahun'");
