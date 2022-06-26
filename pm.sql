@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jun 2022 pada 02.05
--- Versi server: 10.4.20-MariaDB
--- Versi PHP: 8.0.8
+-- Host: localhost
+-- Generation Time: Jun 26, 2022 at 05:14 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,46 +24,49 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bahan_baku`
+-- Table structure for table `bahan_baku`
 --
 
 CREATE TABLE `bahan_baku` (
-  `id_bb` int(11) NOT NULL,
+  `id_bb` int(11) UNSIGNED NOT NULL,
   `kd_bb` varchar(6) NOT NULL DEFAULT 'BB',
   `nm_bb` varchar(50) NOT NULL,
   `hrg_bb` int(10) NOT NULL,
-  `satuan_bb` varchar(50) NOT NULL
+  `satuan_bb` varchar(50) NOT NULL,
+  `stok_bb` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `tot_bb` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `tgl_bb` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `bahan_baku`
+-- Dumping data for table `bahan_baku`
 --
 
-INSERT INTO `bahan_baku` (`id_bb`, `kd_bb`, `nm_bb`, `hrg_bb`, `satuan_bb`) VALUES
-(27, 'BB27', 'Kayu \"A\"', 75000, 'Unit'),
-(28, 'BB28', 'Kayu \"B\"', 175000, 'Unit'),
-(29, 'BB29', 'Kayu \"C\"', 41000, 'Unit'),
-(33, 'BB33', 'Kayu \"F\"', 109000, 'Unit'),
-(34, 'BB34', 'Kayu \"G\"', 620000, 'Unit'),
-(35, 'BB35', 'Triplek', 70000, 'Unit'),
-(36, 'BB36', 'Kaca Rasa', 50000, 'Unit'),
-(0, 'BB0', 'Max creamer', 30000, 'gram'),
-(0, 'BB0', 'Max creamer', 32000, 'box'),
-(0, 'BB0', 'teh', 43000, 'gram'),
-(0, 'BB0', 'teh', 43000, 'gram'),
-(0, 'BB0', 'Max creamer', 32000, 'box'),
-(0, 'BB0', 'teh', 43000, 'gram'),
-(0, 'BB0', 'gula cair', 20000, 'kg'),
-(0, 'BB0', 'teh', 9000, 'gram');
+INSERT INTO `bahan_baku` (`id_bb`, `kd_bb`, `nm_bb`, `hrg_bb`, `satuan_bb`, `stok_bb`, `tot_bb`, `tgl_bb`) VALUES
+(27, 'BB27', 'Kayu A', 75000, 'Unit', 120, 9000000, '2022-06-26 05:10:29'),
+(28, 'BB28', 'Kayu B', 175000, 'Unit', 20, 3500000, '2022-06-26 05:11:13'),
+(29, 'BB29', 'Kayu \"C\"', 41000, 'Unit', 0, 0, '2022-06-26 02:02:42'),
+(33, 'BB33', 'Kayu \"F\"', 109000, 'Unit', 0, 0, '2022-06-26 02:02:42'),
+(34, 'BB34', 'Kayu \"G\"', 620000, 'Unit', 0, 0, '2022-06-26 02:02:42'),
+(35, 'BB35', 'Triplek', 70000, 'Unit', 0, 0, '2022-06-26 02:02:42'),
+(36, 'BB36', 'Kaca Rasa', 50000, 'Unit', 0, 0, '2022-06-26 02:02:42'),
+(37, 'BB0', 'Max creamer', 30000, 'gram', 0, 0, '2022-06-26 02:02:42'),
+(38, 'BB0', 'Max creamer', 32000, 'box', 0, 0, '2022-06-26 02:02:42'),
+(39, 'BB0', 'teh', 43000, 'gram', 0, 0, '2022-06-26 02:02:42'),
+(40, 'BB0', 'teh', 43000, 'gram', 0, 0, '2022-06-26 02:02:42'),
+(41, 'BB0', 'Max creamer', 32000, 'box', 0, 0, '2022-06-26 02:02:42'),
+(42, 'BB0', 'teh', 43000, 'gram', 0, 0, '2022-06-26 02:02:42'),
+(43, 'BB0', 'gula cair', 20000, 'kg', 0, 0, '2022-06-26 02:02:42'),
+(44, 'BB0', 'teh', 9000, 'gram', 0, 0, '2022-06-26 02:02:42');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bahan_penolong`
+-- Table structure for table `bahan_penolong`
 --
 
 CREATE TABLE `bahan_penolong` (
-  `id_bp` int(11) NOT NULL,
+  `id_bp` int(11) UNSIGNED NOT NULL,
   `kd_bp` varchar(6) NOT NULL DEFAULT 'BP',
   `nm_bp` varchar(50) NOT NULL,
   `hrg_bp` int(10) NOT NULL,
@@ -71,7 +74,7 @@ CREATE TABLE `bahan_penolong` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `bahan_penolong`
+-- Dumping data for table `bahan_penolong`
 --
 
 INSERT INTO `bahan_penolong` (`id_bp`, `kd_bp`, `nm_bp`, `hrg_bp`, `satuan_bp`) VALUES
@@ -83,13 +86,13 @@ INSERT INTO `bahan_penolong` (`id_bp`, `kd_bp`, `nm_bp`, `hrg_bp`, `satuan_bp`) 
 (10, 'BP10', 'Cat Clear', 50000, 'Liter'),
 (11, 'BP11', 'Cat Impra Sending', 50000, 'Liter'),
 (12, 'BP12', 'Tenner Super', 18000, 'Liter'),
-(0, 'BP0', 'cup', 700, 'pcs'),
-(0, 'BP0', 'es batu kristal', 700, 'kantong');
+(13, 'BP0', 'cup', 700, 'pcs'),
+(14, 'BP0', 'es batu kristal', 700, 'kantong');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_produksi`
+-- Table structure for table `detail_produksi`
 --
 
 CREATE TABLE `detail_produksi` (
@@ -106,7 +109,7 @@ CREATE TABLE `detail_produksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `detail_produksi`
+-- Dumping data for table `detail_produksi`
 --
 
 INSERT INTO `detail_produksi` (`tanggal`, `nmr_produksi`, `jml_produksi`, `kode`, `nama`, `harga`, `keterangan`, `jumlah`, `total`, `lvl`) VALUES
@@ -123,7 +126,7 @@ INSERT INTO `detail_produksi` (`tanggal`, `nmr_produksi`, `jml_produksi`, `kode`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `overhead_pabrik`
+-- Table structure for table `overhead_pabrik`
 --
 
 CREATE TABLE `overhead_pabrik` (
@@ -132,23 +135,23 @@ CREATE TABLE `overhead_pabrik` (
   `by_overp` int(10) NOT NULL,
   `ket_overp` text NOT NULL,
   `tgl_overp` date NOT NULL,
-  `id_overp` int(11) NOT NULL
+  `id_overp` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `overhead_pabrik`
+-- Dumping data for table `overhead_pabrik`
 --
 
 INSERT INTO `overhead_pabrik` (`kd_overp`, `nm_overp`, `by_overp`, `ket_overp`, `tgl_overp`, `id_overp`) VALUES
 ('BOP1', 'Biaya Listrik Dan Air', 525000, 'Biaya listrik dan air perbulan', '2021-02-16', 1),
-('BOP0', 'penyusutahn mesin', 770000, 'mesin sealer', '2022-05-27', 0),
-('BOP0', 'penyusutahn mesin', 770000, 'mesin sealer', '2022-05-28', 0),
-('BOP0', 'penyusutahn mesin', 770000, 'mesin sealer', '2022-05-31', 0);
+('BOP0', 'penyusutahn mesin', 770000, 'mesin sealer', '2022-05-27', 2),
+('BOP0', 'penyusutahn mesin', 770000, 'mesin sealer', '2022-05-28', 3),
+('BOP0', 'penyusutahn mesin', 770000, 'mesin sealer', '2022-05-31', 4);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `persediaan_bahan_baku`
+-- Table structure for table `persediaan_bahan_baku`
 --
 
 CREATE TABLE `persediaan_bahan_baku` (
@@ -162,30 +165,30 @@ CREATE TABLE `persediaan_bahan_baku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `persediaan_bahan_baku`
+-- Dumping data for table `persediaan_bahan_baku`
 --
 
 INSERT INTO `persediaan_bahan_baku` (`tgl_pb`, `kd_pb`, `nm_pb`, `sat_pb`, `hrg_pb`, `stok_pb`, `tot_pb`) VALUES
-('2021-02-20', 'BB27', 'Kayu \"A\"', 'Unit', 75000, 200, 22500000),
-('2021-02-27', 'BB28', 'Kayu \"B\"', 'Unit', 175000, 200, 35000000),
+('2021-02-20', 'BB27', 'Kayu A', 'Unit', 75000, 200, 15000000),
+('2021-02-27', 'BB28', 'Kayu B', 'Unit', 175000, 200, 35000000),
 ('2021-02-16', 'BB29', 'Kayu \"C\"', 'Unit', 41000, 200, 8200000),
 ('2021-02-16', 'BB33', 'Kayu \"F\"', 'Unit', 109000, 250, 27250000),
 ('2021-02-27', 'BB34', 'Kayu \"G\"', 'Unit', 620000, 50, 31000000),
 ('2021-02-16', 'BB35', 'Triplek', 'Unit', 70000, 10, 700000),
 ('2021-02-26', 'BB36', 'Kaca Rasa', 'Unit', 50000, 100, 5000000),
-('2022-05-31', 'BB0', 'Max creamer', 'gram', 30000, 21, 100000),
-('2022-05-31', 'BB0', 'Max creamer', 'box', 32000, 15, 100000),
-('2022-05-31', 'BB0', 'teh', 'gram', 43000, 13, 100000),
-('2022-05-31', 'BB0', 'teh', 'gram', 43000, 10, 100000),
-('2022-05-31', 'BB0', 'Max creamer', 'box', 32000, 10, 100000),
-('2022-05-31', 'BB0', 'teh', 'gram', 43000, 5, 100000),
-('2022-05-31', 'BB0', 'gula cair', 'kg', 20000, 5, 100000),
-('2022-05-31', 'BB0', 'teh', 'gram', 9000, 0, 0);
+('2022-06-25', 'BB0', 'Max creamer', 'gram', 30000, 21, 0),
+('2022-06-25', 'BB0', 'Max creamer', 'box', 32000, 15, 0),
+('2022-06-25', 'BB0', 'teh', 'gram', 43000, 13, 0),
+('2022-06-25', 'BB0', 'teh', 'gram', 43000, 10, 0),
+('2022-06-25', 'BB0', 'Max creamer', 'box', 32000, 10, 0),
+('2022-06-25', 'BB0', 'teh', 'gram', 43000, 5, 0),
+('2022-06-25', 'BB0', 'gula cair', 'kg', 20000, 5, 0),
+('2022-06-25', 'BB0', 'teh', 'gram', 9000, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `persediaan_bahan_penolong`
+-- Table structure for table `persediaan_bahan_penolong`
 --
 
 CREATE TABLE `persediaan_bahan_penolong` (
@@ -199,7 +202,7 @@ CREATE TABLE `persediaan_bahan_penolong` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `persediaan_bahan_penolong`
+-- Dumping data for table `persediaan_bahan_penolong`
 --
 
 INSERT INTO `persediaan_bahan_penolong` (`tgl_pb`, `kd_pb`, `nm_pb`, `sat_pb`, `hrg_pb`, `stok_pb`, `tot_pb`) VALUES
@@ -217,7 +220,7 @@ INSERT INTO `persediaan_bahan_penolong` (`tgl_pb`, `kd_pb`, `nm_pb`, `sat_pb`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produksi`
+-- Table structure for table `produksi`
 --
 
 CREATE TABLE `produksi` (
@@ -236,7 +239,7 @@ CREATE TABLE `produksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `produksi`
+-- Dumping data for table `produksi`
 --
 
 INSERT INTO `produksi` (`id_produksi`, `nmr_produksi`, `nm_produk`, `jml_produksi`, `bbb`, `bbp`, `btk`, `bop`, `hpp`, `tgl_produksi`, `periode`, `tahun`) VALUES
@@ -256,11 +259,11 @@ INSERT INTO `produksi` (`id_produksi`, `nmr_produksi`, `nm_produk`, `jml_produks
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tenaker`
+-- Table structure for table `tenaker`
 --
 
 CREATE TABLE `tenaker` (
-  `id_tenaker` int(11) NOT NULL,
+  `id_tenaker` int(11) UNSIGNED NOT NULL,
   `nm_tenaker` varchar(50) NOT NULL,
   `bag_tenaker` varchar(50) NOT NULL,
   `upah_tenaker` int(11) NOT NULL,
@@ -268,23 +271,23 @@ CREATE TABLE `tenaker` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tenaker`
+-- Dumping data for table `tenaker`
 --
 
 INSERT INTO `tenaker` (`id_tenaker`, `nm_tenaker`, `bag_tenaker`, `upah_tenaker`, `ttl_pendapatan`) VALUES
 (1, 'Yasar Wicaksono', 'Meja', 20000, 2000000),
 (5, 'Yassar', 'Meja', 20000, 0),
 (7, 'Reform', 'Kusen Pintu', 15000, 3000000),
-(0, 'Nais', 'Lemari', 50000, 0),
-(0, 'nida', 'Lemari', 2000, 0),
-(0, 'gilang', 'Kusen Jendela', 5000, 0),
-(0, 'fira', 'Meja', 700, 0),
-(0, 'merry', 'Jendela', 300, 0);
+(8, 'Nais', 'Lemari', 50000, 0),
+(9, 'nida', 'Lemari', 2000, 0),
+(10, 'gilang', 'Kusen Jendela', 5000, 0),
+(11, 'fira', 'Meja', 700, 0),
+(12, 'merry', 'Jendela', 300, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -297,7 +300,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `nama`, `email`, `level`) VALUES
@@ -310,17 +313,65 @@ INSERT INTO `users` (`id`, `username`, `password`, `nama`, `email`, `level`) VAL
 --
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `bahan_baku`
+--
+ALTER TABLE `bahan_baku`
+  ADD PRIMARY KEY (`id_bb`);
+
+--
+-- Indexes for table `bahan_penolong`
+--
+ALTER TABLE `bahan_penolong`
+  ADD PRIMARY KEY (`id_bp`);
+
+--
+-- Indexes for table `overhead_pabrik`
+--
+ALTER TABLE `overhead_pabrik`
+  ADD PRIMARY KEY (`id_overp`);
+
+--
+-- Indexes for table `tenaker`
+--
+ALTER TABLE `tenaker`
+  ADD PRIMARY KEY (`id_tenaker`);
+
+--
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `bahan_baku`
+--
+ALTER TABLE `bahan_baku`
+  MODIFY `id_bb` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `bahan_penolong`
+--
+ALTER TABLE `bahan_penolong`
+  MODIFY `id_bp` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `overhead_pabrik`
+--
+ALTER TABLE `overhead_pabrik`
+  MODIFY `id_overp` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tenaker`
+--
+ALTER TABLE `tenaker`
+  MODIFY `id_tenaker` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
