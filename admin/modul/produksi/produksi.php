@@ -5,11 +5,11 @@ $aksi = "modul/produksi/aksi_produksi.php";
 $model = mysqli_query($koneksi, "SELECT * FROM produksi");
 $data = array();
 while ($fetch = mysqli_fetch_assoc($model)) {
-  $data[] = $fetch; //result dijadikan array 
+    $data[] = $fetch; //result dijadikan array 
 }
 switch ($_GET['act']) {
 
-  case "list":
+    case "list":
 ?>
 
 <ol class="breadcrumb" style="background-color: white;">
@@ -70,9 +70,9 @@ switch ($_GET['act']) {
                         </thead>
                         <tbody>
                             <?php
-                  if ($data) :
-                    $no = 1;
-                    foreach ($data as $bb) : ?>
+                                    if ($data) :
+                                        $no = 1;
+                                        foreach ($data as $bb) : ?>
                             <tr>
                                 <td><?= $no ?></td>
                                 <td><?= $bb['nmr_produksi'] ?></td>
@@ -144,9 +144,9 @@ switch ($_GET['act']) {
                                 <?php endif ?>
                             </tr>
                             <?php
-                      $no++;
-                    endforeach;
-                  endif; ?>
+                                            $no++;
+                                        endforeach;
+                                    endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -155,18 +155,18 @@ switch ($_GET['act']) {
     </div>
 </div>
 <?php
-    break;
+        break;
 
 
-    // --------------------------------------------------------------------------------------- AKSI BBB
-  case "bbb":
-    $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
-    while ($r = mysqli_fetch_assoc($edit)) {
-      $nmr_produksi = $r['nmr_produksi'];
-      $nm_produk = $r['nm_produk'];
-      $jml_produksi = $r['jml_produksi'];
-    }
-  ?>
+        // --------------------------------------------------------------------------------------- AKSI BBB
+    case "bbb":
+        $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
+        while ($r = mysqli_fetch_assoc($edit)) {
+            $nmr_produksi = $r['nmr_produksi'];
+            $nm_produk = $r['nm_produk'];
+            $jml_produksi = $r['jml_produksi'];
+        }
+    ?>
 <ol class="breadcrumb" style="background-color: white;">
     <li class="breadcrumb-item"><a href="#">Master Proses</a></li>
     <li class="breadcrumb-item"><a href="#">Produksi</a></li>
@@ -204,20 +204,26 @@ switch ($_GET['act']) {
     <div class="col-md-12">
         <div class="box box-info">
             <div class="box-header with-border">
-                <form class="form-inline" method="POST" action='<?php echo $aksi; ?>?page=aksi_produksi&act=tambah'>
+                <form class="form-inline" method="POST" action='<?php echo $aksi; ?>?page=aksi_produksi&act=bbb'>
                     <div class="form-group" style="margin-left: 12px;">
-                        <label for="nm_produk">Bahan Baku</label>
-                        <select class="form-control" name="kd_bb" style="margin-left: 12px;">
-                            <option value="0">Bahan Baku</option>
+                        <label for="kd_bb">Bahan Baku</label>
+                        <select class="form-control ml-2" name="kd_bb" required>
+                            <option value="">Bahan Baku</option>
                             <?php
-                  $bb = mysqli_query($koneksi, "SELECT * FROM bahan_baku");
+                                    $bb = mysqli_query($koneksi, "SELECT * FROM bahan_baku");
 
-                  while ($rbb = mysqli_fetch_assoc($bb)) {
+                                    while ($rbb = mysqli_fetch_assoc($bb)) {
 
-                  ?>
+                                    ?>
                             <option value="<?php echo $rbb['kd_bb']; ?>"><?php echo $rbb['nm_bb']; ?></option>
                             <?php } ?>
                         </select>
+                    </div>
+                    <input type="hidden" id="nmr" name="nmr" value="<?php echo $nmr_produksi; ?>">
+                    <input type="hidden" id="jml_produksi" name="jml_produksi" value="<?php echo $jml_produksi; ?>">
+                    <div class="form-group" style="margin-left: 12px;">
+                        <label for="jml">Jumlah</label>
+                        <input type="number" name="jml" id="jml" class="form-control ml-2" required>
                     </div>
                     <button type="submit" class="btn btn-primary ml-2"><i class="glyphicon glyphicon-plus"
                             aria-hidden="true"></i>
@@ -252,9 +258,9 @@ switch ($_GET['act']) {
                         </thead>
                         <tbody>
                             <?php
-                  $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BBB' and nmr_produksi='$nmr_produksi'");
-                  $no = 1;
-                  while ($r = mysqli_fetch_assoc($tampil)) : ?>
+                                    $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BBB' and nmr_produksi='$nmr_produksi'");
+                                    $no = 1;
+                                    while ($r = mysqli_fetch_assoc($tampil)) : ?>
                             <tr>
                                 <td><?= $no ?></td>
                                 <td><?= $r['kode'] ?></td>
@@ -264,15 +270,15 @@ switch ($_GET['act']) {
                                 <td><?= $r['jumlah'] ?></td>
                                 <td class="text-right">Rp. <?= number_format($r['total'], 2) ?></td>
                                 <td class="text-center">
-                                    <a href="<?= $aksi ?>?page=aksi_produksi&act=hapusbbb&id=<?= $r['id_bb'] ?>"
+                                    <a href="<?= $aksi ?>?page=aksi_produksi&act=hapusbbb&id=<?= $r['nmr_produksi'] ?>&kd=<?= $r['kode'] ?>"
                                         class="btn btn-danger btn-circle">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>
                             <?php
-                    $no++;
-                  endwhile; ?>
+                                        $no++;
+                                    endwhile; ?>
                         </tbody>
                     </table>
                 </div>
@@ -281,17 +287,17 @@ switch ($_GET['act']) {
     </div>
 </div>
 <?php
-    break;
+        break;
 
-    // ----------------------------------------------------------------------------------------AKSI BBP
-  case "bbp":
-    $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
-    while ($r = mysqli_fetch_assoc($edit)) {
-      $nmr_produksi = $r['nmr_produksi'];
-      $nm_produk = $r['nm_produk'];
-      $jml_produksi = $r['jml_produksi'];
-    }
-  ?>
+        // ----------------------------------------------------------------------------------------AKSI BBP
+    case "bbp":
+        $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
+        while ($r = mysqli_fetch_assoc($edit)) {
+            $nmr_produksi = $r['nmr_produksi'];
+            $nm_produk = $r['nm_produk'];
+            $jml_produksi = $r['jml_produksi'];
+        }
+    ?>
 <ol class="breadcrumb" style="background-color: white;">
     <li><a href="#">Master Proses</a></li>
     <li><a href="#">Produksi</a></li>
@@ -321,87 +327,108 @@ switch ($_GET['act']) {
                             type="text" value="<?php echo $jml_produksi; ?>" readonly>
                     </div>
                 </div>
-                <hr>
-                <div class="box-body">
-                    <form class="form-horizontal" action="<?php echo $aksi; ?>?page=aksi_produksi&act=bbp"
-                        method="POST">
-                        <input type="hidden" class="form-control" name="nmr" value="<?php echo $nmr_produksi; ?>">
-                        <input type="hidden" class="form-control" name="jml" value="<?php echo $jml_produksi; ?>">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" style="margin-left:-28px;">Bahan Penolong</label>
-                            <div class="col-sm-3 selectContainer" style="margin-left:-15px;">
-                                <select class="form-control" name="kd_bp">
-                                    <option value="0">Bahan Penolong</option>
-                                    <?php
-                      $bp = mysqli_query($koneksi, "SELECT * FROM bahan_penolong");
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row my-4">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <form class="form-inline" method="POST" action='<?php echo $aksi; ?>?page=aksi_produksi&act=bbp'>
+                    <div class="form-group" style="margin-left: 12px;">
+                        <label for="kd_bp">Bahan Penolong</label>
+                        <select class="form-control ml-2" name="kd_bp" required>
+                            <option value="">Bahan Penolong</option>
+                            <?php
+                                    $bb = mysqli_query($koneksi, "SELECT * FROM bahan_penolong");
 
-                      while ($rbp = mysqli_fetch_assoc($bp)) {
+                                    while ($rbb = mysqli_fetch_assoc($bb)) {
 
-                      ?>
-                                    <option value="<?php echo $rbp['kd_bp']; ?>"><?php echo $rbp['nm_bp']; ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary active"><i class="glyphicon glyphicon-plus"
-                                    aria-hidden="true"></i> Tambah</button>
-                            <a href=index.php?page=produksi&act=list><button type="button" class="btn btn-danger"><i
-                                        class="glyphicon glyphicon-circle-arrow-left"></i> Kembali</button></a>
-                        </div>
-                    </form>
-                    <?php
-              echo "<table id = 'example1' class='table table-bordered table-striped table-hover'>";
-
-              echo "<thead><tr>
-              <th>No</th>
-              <th>Kode</th>
-              <th>Nama</th>
-              <th>Harga</th>
-              <th>Satuan</th>
-              <th>Jumlah</th>
-              <th>Total</th>
-              <th>Aksi</th>
-              </tr></thead><tbody>";
-
-              $p = new Paging;
-              $batas = 4;
-              $posisi = $p->cariPosisi($batas);
-              $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BBP' and nmr_produksi='$nmr_produksi' LIMIT $posisi, $batas ");
-              $no = $posisi + 1;
-              while ($r = mysqli_fetch_assoc($tampil)) {
-                echo "<tr><td>$no</td>
-            <td>$r[kode]</td>
-            <td>$r[nama]</td>
-            <td>Rp.  " . number_format($r['harga'], 0, ',', '.') . "</td>
-            <td>$r[keterangan]</td>
-            <td>$r[jumlah]</td>
-            <td>Rp.  " . number_format($r['total'], 0, ',', '.') . "</td>
-            <td><a title = 'Hapus Data' href=$aksi?page=aksi_produksi&act=hapusbbp&id=$r[nmr_produksi]&id2=$r[kode]><button type='button' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></button></a>
-            </td></tr>";
-
-                $no++;
-              }
-
-              echo "</table>";
-              echo "</li></ul>"; ?>
+                                    ?>
+                            <option value="<?php echo $rbb['kd_bp']; ?>"><?php echo $rbb['nm_bp']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <input type="hidden" id="nmr" name="nmr" value="<?php echo $nmr_produksi; ?>">
+                    <input type="hidden" id="jml_produksi" name="jml_produksi" value="<?php echo $jml_produksi; ?>">
+                    <div class="form-group" style="margin-left: 12px;">
+                        <label for="jml">Jumlah</label>
+                        <input type="number" name="jml" id="jml" class="form-control ml-2" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary ml-2"><i class="glyphicon glyphicon-plus"
+                            aria-hidden="true"></i>
+                        Tambah</button>
+                    <a href="index.php?page=produksi&act=list" class="btn btn-danger ml-2" role="button"><i
+                            class="glyphicon glyphicon-circle-arrow-left"></i> Kembali</button></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">List Bahan Penolong</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered datatables-init" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode</th>
+                                <th>nama</th>
+                                <th>Harga</th>
+                                <th>Satuan</th>
+                                <th>Jumlah</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                    $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BBP' and nmr_produksi='$nmr_produksi'");
+                                    $no = 1;
+                                    while ($r = mysqli_fetch_assoc($tampil)) : ?>
+                            <tr>
+                                <td><?= $no ?></td>
+                                <td><?= $r['kode'] ?></td>
+                                <td><?= $r['nama'] ?></td>
+                                <td><?= $r['harga'] ?></td>
+                                <td><?= $r['keterangan'] ?></td>
+                                <td><?= $r['jumlah'] ?></td>
+                                <td class="text-right">Rp. <?= number_format($r['total'], 2) ?></td>
+                                <td class="text-center">
+                                    <a href="<?= $aksi ?>?page=aksi_produksi&act=hapusbbp&id=<?= $r['nmr_produksi'] ?>&kd=<?= $r['kode'] ?>"
+                                        class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php
+                                        $no++;
+                                    endwhile; ?>
+                        </tbody>
+                    </table>
                 </div>
-
-
             </div>
         </div>
     </div>
 </div>
 <?php
-    break;
+        break;
 
-    // ----------------------------------------------------------------------------------------AKSI BTK
-  case "btk":
-    $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
-    while ($r = mysqli_fetch_assoc($edit)) {
-      $nmr_produksi = $r['nmr_produksi'];
-      $nm_produk = $r['nm_produk'];
-      $jml_produksi = $r['jml_produksi'];
-    }
-  ?>
+        // ----------------------------------------------------------------------------------------AKSI BTK
+    case "btk":
+        $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
+        while ($r = mysqli_fetch_assoc($edit)) {
+            $nmr_produksi = $r['nmr_produksi'];
+            $nm_produk = $r['nm_produk'];
+            $jml_produksi = $r['jml_produksi'];
+        }
+    ?>
 <ol class="breadcrumb" style="background-color: white;">
     <li><a href="#">Master Proses</a></li>
     <li><a href="#">Produksi</a></li>
@@ -443,11 +470,11 @@ switch ($_GET['act']) {
                                 <select class="form-control" name="id_tenaker">
                                     <option value="0">Tenaga Kerja</option>
                                     <?php
-                      $tenaker = mysqli_query($koneksi, "SELECT * FROM tenaker");
-                      while ($t = mysqli_fetch_assoc($tenaker)) {
-                        echo "<option value='$t[id_tenaker]'>$t[nm_tenaker]</option>";
-                      }
-                      ?>
+                                            $tenaker = mysqli_query($koneksi, "SELECT * FROM tenaker");
+                                            while ($t = mysqli_fetch_assoc($tenaker)) {
+                                                echo "<option value='$t[id_tenaker]'>$t[nm_tenaker]</option>";
+                                            }
+                                            ?>
 
                                 </select>
                             </div>
@@ -458,9 +485,9 @@ switch ($_GET['act']) {
                         </div>
                     </form>
                     <?php
-              echo "<table id = 'example1' class='table table-bordered table-striped table-hover'>";
+                            echo "<table id = 'example1' class='table table-bordered table-striped table-hover'>";
 
-              echo "<thead><tr>
+                            echo "<thead><tr>
               <th>No</th>
               <th>Kode</th>
               <th>Nama</th>
@@ -470,13 +497,13 @@ switch ($_GET['act']) {
               <th>Total</th>
               <th>Aksi</th>
               </tr></thead><tbody>";
-              $p = new Paging;
-              $batas = 4;
-              $posisi = $p->cariPosisi($batas);
-              $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BTK' and nmr_produksi='$nmr_produksi' LIMIT $posisi, $batas ");
-              $no = $posisi + 1;
-              while ($r = mysqli_fetch_assoc($tampil)) {
-                echo "<tr><td>$no</td>
+                            $p = new Paging;
+                            $batas = 4;
+                            $posisi = $p->cariPosisi($batas);
+                            $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BTK' and nmr_produksi='$nmr_produksi' LIMIT $posisi, $batas ");
+                            $no = $posisi + 1;
+                            while ($r = mysqli_fetch_assoc($tampil)) {
+                                echo "<tr><td>$no</td>
             <td>$r[kode]</td>
             <td>$r[nama]</td>
             <td>Rp.  " . number_format($r['harga'], 0, ',', '.') . "</td>
@@ -486,11 +513,11 @@ switch ($_GET['act']) {
             <td><a title = 'Hapus Data' href=$aksi?page=aksi_produksi&act=hapusbtk&id=$r[nmr_produksi]&id2=$r[kode]><button type='button' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></button></a>
             </td></tr>";
 
-                $no++;
-              }
+                                $no++;
+                            }
 
-              echo "</table>";
-              echo "</li></ul>"; ?>
+                            echo "</table>";
+                            echo "</li></ul>"; ?>
                 </div>
 
 
@@ -499,17 +526,17 @@ switch ($_GET['act']) {
     </div>
 </div>
 <?php
-    break;
+        break;
 
-    // ----------------------------------------------------------------------------------------AKSI BOP
-  case "bop":
-    $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
-    while ($r = mysqli_fetch_assoc($edit)) {
-      $nmr_produksi = $r['nmr_produksi'];
-      $nm_produk = $r['nm_produk'];
-      $jml_produksi = $r['jml_produksi'];
-    }
-  ?>
+        // ----------------------------------------------------------------------------------------AKSI BOP
+    case "bop":
+        $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
+        while ($r = mysqli_fetch_assoc($edit)) {
+            $nmr_produksi = $r['nmr_produksi'];
+            $nm_produk = $r['nm_produk'];
+            $jml_produksi = $r['jml_produksi'];
+        }
+    ?>
 <ol class="breadcrumb" style="background-color: white;">
     <li><a href="#">Master Proses</a></li>
     <li><a href="#">Produksi</a></li>
@@ -551,11 +578,11 @@ switch ($_GET['act']) {
                                 <select class="form-control" name="kd_overp">
                                     <option value="0">Overhead Pabrik</option>
                                     <?php
-                      $op = mysqli_query($koneksi, "SELECT * FROM overhead_pabrik");
+                                            $op = mysqli_query($koneksi, "SELECT * FROM overhead_pabrik");
 
-                      while ($rop = mysqli_fetch_assoc($op)) {
+                                            while ($rop = mysqli_fetch_assoc($op)) {
 
-                      ?>
+                                            ?>
                                     <option value="<?php echo $rop['kd_overp']; ?>"><?php echo $rop['nm_overp']; ?>
                                     </option>
                                     <?php } ?>
@@ -568,9 +595,9 @@ switch ($_GET['act']) {
                         </div>
                     </form>
                     <?php
-              echo "<table id = 'example1' class='table table-bordered table-striped table-hover'>";
+                            echo "<table id = 'example1' class='table table-bordered table-striped table-hover'>";
 
-              echo "<thead><tr>
+                            echo "<thead><tr>
               <th>No</th>
               <th>Kode</th>
               <th>Nama</th>
@@ -579,13 +606,13 @@ switch ($_GET['act']) {
               <th>Total</th>
               <th>Aksi</th>
               </tr></thead><tbody>";
-              $p = new Paging;
-              $batas = 4;
-              $posisi = $p->cariPosisi($batas);
-              $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BOP' and nmr_produksi='$nmr_produksi' LIMIT $posisi, $batas ");
-              $no = $posisi + 1;
-              while ($r = mysqli_fetch_assoc($tampil)) {
-                echo "<tr><td>$no</td>
+                            $p = new Paging;
+                            $batas = 4;
+                            $posisi = $p->cariPosisi($batas);
+                            $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BOP' and nmr_produksi='$nmr_produksi' LIMIT $posisi, $batas ");
+                            $no = $posisi + 1;
+                            while ($r = mysqli_fetch_assoc($tampil)) {
+                                echo "<tr><td>$no</td>
             <td>$r[kode]</td>
             <td>$r[nama]</td>
             <td>Rp.  " . number_format($r['harga'], 0, ',', '.') . "</td>
@@ -594,11 +621,11 @@ switch ($_GET['act']) {
             <td><a title = 'Hapus Data' href=$aksi?page=aksi_produksi&act=hapusbop&id=$r[nmr_produksi]&id2=$r[kode]><button type='button' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></button></a>
             </td></tr>";
 
-                $no++;
-              }
+                                $no++;
+                            }
 
-              echo "</table>";
-              echo "</li></ul>"; ?>
+                            echo "</table>";
+                            echo "</li></ul>"; ?>
                 </div>
 
 
@@ -607,30 +634,30 @@ switch ($_GET['act']) {
     </div>
 </div>
 <?php
-    break;
+        break;
 
-    // TODO AKSI HPP
-  case "hpp":
-    $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
-    while ($r = mysqli_fetch_assoc($edit)) {
-      $nmr_produksi = $r['nmr_produksi'];
-      $nm_produk = $r['nm_produk'];
-      $bbb = "Rp. " . number_format($r['bbb'], 0, ',', '.');
-      $bbp = "Rp. " . number_format($r['bbp'], 0, ',', '.');
-      $bop = "Rp. " . number_format($r['bop'], 0, ',', '.');
-      $btk = "Rp. " . number_format($r['btk'], 0, ',', '.');
-      $hpp = "Rp. " . number_format($r['hpp'], 0, ',', '.');
-      $jml_produksi = $r['jml_produksi'];
-      $hpppi = $r['hpp'] / $jml_produksi;
-      $hpppi2 = "Rp. " . number_format($hpppi, 2, ',', '.');
-      $ma = $hpppi * 0.6;
-      $ma2 = "Rp. " . number_format($ma, 2, ',', '.');
-      $tgt = $hpppi + $ma;
-      $tgt2 = "Rp. " . number_format($tgt, 2, ',', '.');
-      $lb = ($tgt * $jml_produksi) - $r['hpp'];
-      $lb2 = "Rp. " . number_format($lb, 2, ',', '.');
-    }
-  ?>
+        // TODO AKSI HPP
+    case "hpp":
+        $edit = mysqli_query($koneksi, "SELECT * FROM produksi WHERE id_produksi='$_GET[id]'");
+        while ($r = mysqli_fetch_assoc($edit)) {
+            $nmr_produksi = $r['nmr_produksi'];
+            $nm_produk = $r['nm_produk'];
+            $bbb = "Rp. " . number_format($r['bbb'], 0, ',', '.');
+            $bbp = "Rp. " . number_format($r['bbp'], 0, ',', '.');
+            $bop = "Rp. " . number_format($r['bop'], 0, ',', '.');
+            $btk = "Rp. " . number_format($r['btk'], 0, ',', '.');
+            $hpp = "Rp. " . number_format($r['hpp'], 0, ',', '.');
+            $jml_produksi = $r['jml_produksi'];
+            $hpppi = $r['hpp'] / $jml_produksi;
+            $hpppi2 = "Rp. " . number_format($hpppi, 2, ',', '.');
+            $ma = $hpppi * 0.6;
+            $ma2 = "Rp. " . number_format($ma, 2, ',', '.');
+            $tgt = $hpppi + $ma;
+            $tgt2 = "Rp. " . number_format($tgt, 2, ',', '.');
+            $lb = ($tgt * $jml_produksi) - $r['hpp'];
+            $lb2 = "Rp. " . number_format($lb, 2, ',', '.');
+        }
+    ?>
 <ol class="breadcrumb" style="background-color: white;">
     <li><a href="#">Master Proses</a></li>
     <li><a href="#">Produksi</a></li>
@@ -761,6 +788,6 @@ switch ($_GET['act']) {
 </div>
 </div>
 <?php
-    break;
+        break;
 }
 ?>
