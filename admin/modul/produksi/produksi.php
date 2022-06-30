@@ -265,7 +265,7 @@ switch ($_GET['act']) {
                                 <td><?= $no ?></td>
                                 <td><?= $r['kode'] ?></td>
                                 <td><?= $r['nama'] ?></td>
-                                <td><?= $r['harga'] ?></td>
+                                <td><?= 'Rp.' . number_format($r['harga'], 2) ?></td>
                                 <td><?= $r['keterangan'] ?></td>
                                 <td><?= $r['jumlah'] ?></td>
                                 <td class="text-right">Rp. <?= number_format($r['total'], 2) ?></td>
@@ -299,10 +299,10 @@ switch ($_GET['act']) {
         }
     ?>
 <ol class="breadcrumb" style="background-color: white;">
-    <li><a href="#">Master Proses</a></li>
-    <li><a href="#">Produksi</a></li>
-    <li><a href="index.php?page=produksi&act=list">Daftar Produksi</a></li>
-    <li class="active">Biaya Bahan Penolong Untuk <?php echo $nm_produk; ?></li>
+    <li class="breadcrumb-item"><a href="#">Master Proses</a></li>
+    <li class="breadcrumb-item"><a href="#">Produksi</a></li>
+    <li class="breadcrumb-item"><a href="index.php?page=produksi&act=list">Daftar Produksi</a></li>
+    <li class="breadcrumb-item active">Biaya Bahan Penolong Untuk <?php echo $nm_produk; ?></li>
 </ol>
 <div class="row">
     <div class="col-md-12">
@@ -396,7 +396,7 @@ switch ($_GET['act']) {
                                 <td><?= $no ?></td>
                                 <td><?= $r['kode'] ?></td>
                                 <td><?= $r['nama'] ?></td>
-                                <td><?= $r['harga'] ?></td>
+                                <td><?= 'Rp.' . number_format($r['harga'], 2) ?></td>
                                 <td><?= $r['keterangan'] ?></td>
                                 <td><?= $r['jumlah'] ?></td>
                                 <td class="text-right">Rp. <?= number_format($r['total'], 2) ?></td>
@@ -430,97 +430,89 @@ switch ($_GET['act']) {
         }
     ?>
 <ol class="breadcrumb" style="background-color: white;">
-    <li><a href="#">Master Proses</a></li>
-    <li><a href="#">Produksi</a></li>
-    <li><a href="index.php?page=produksi&act=list">Daftar Produksi</a></li>
-    <li class="active">Biaya Pekerja <?php echo $nm_produk; ?></li>
+    <li class="breadcrumb-item"><a href="#">Master Proses</a></li>
+    <li class="breadcrumb-item"><a href="#">Produksi</a></li>
+    <li class="breadcrumb-item"><a href="index.php?page=produksi&act=list">Daftar Produksi</a></li>
+    <li class="breadcrumb-item active">Biaya Pekerja <?php echo $nm_produk; ?></li>
 </ol>
-<div class="row">
+<div class="row my-4">
     <div class="col-md-12">
-        <div class="col-md-11"></div>
         <div class="box box-info">
             <div class="box-header with-border">
-                <div class="form-inline">
-                    <input type="hidden" class="form-control" name="id_produksi" value="<?php echo $id_produksi; ?>">
+                <form class="form-inline" method="POST" action='<?php echo $aksi; ?>?page=aksi_produksi&act=btk'>
                     <div class="form-group" style="margin-left: 12px;">
-                        <label for="nmr_produksi">Nomor Produksi</label>
-                        <input style="margin-left: 12px;" id="nmr_produksi" name="nmr_produksi" class="form-control"
-                            type="text" value="<?php echo $nmr_produksi; ?>" readonly>
+                        <label for="id_tenaker">Tenaga Kerja</label>
+                        <select class="form-control ml-2" name="id_tenaker" required>
+                            <option value="">Pilih Tenaga Kerja</option>
+                            <?php
+                                    $bb = mysqli_query($koneksi, "SELECT * FROM tenaker");
+
+                                    while ($rbb = mysqli_fetch_assoc($bb)) {
+
+                                    ?>
+                            <option value="<?php echo $rbb['id_tenaker']; ?>"><?php echo $rbb['nm_tenaker']; ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
-                    <div class="form-group" style="margin-left: 12px;">
-                        <label for="nm_produk">Nama Produk</label>
-                        <input style="margin-left: 12px;" id="nm_produk" name="nm_produk" class="form-control"
-                            type="text" value="<?php echo $nm_produk; ?>" readonly>
-                    </div>
-                    <div class="form-group" style="margin-left: 12px;">
-                        <label for="jml_produksi">Jumlah Produksi</label>
-                        <input style="margin-left: 12px;" id="jml_produksi" name="jml_produksi" class="form-control"
-                            type="text" value="<?php echo $jml_produksi; ?>" readonly>
-                    </div>
+                    <input type="hidden" id="nmr" name="nmr" value="<?php echo $nmr_produksi; ?>">
+                    <input type="hidden" id="jml_produksi" name="jml_produksi" value="<?php echo $jml_produksi; ?>">
+                    <button type="submit" class="btn btn-primary ml-2"><i class="glyphicon glyphicon-plus"
+                            aria-hidden="true"></i>
+                        Tambah</button>
+                    <a href="index.php?page=produksi&act=list" class="btn btn-danger ml-2" role="button"><i
+                            class="glyphicon glyphicon-circle-arrow-left"></i> Kembali</button></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">List Tenaga Kerja</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered datatables-init" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
+                                <th>Upah</th>
+                                <th>Bagian</th>
+                                <th>Jumlah</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                    $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BTK' and nmr_produksi='$nmr_produksi'");
+                                    $no = 1;
+                                    while ($r = mysqli_fetch_assoc($tampil)) : ?>
+                            <tr>
+                                <td><?= $no ?></td>
+                                <td><?= $r['kode'] ?></td>
+                                <td><?= $r['nama'] ?></td>
+                                <td><?= 'Rp.' . number_format($r['harga'], 2) ?></td>
+                                <td><?= $r['keterangan'] ?></td>
+                                <td><?= $r['jumlah'] ?></td>
+                                <td class="text-right">Rp. <?= number_format($r['total'], 2) ?></td>
+                                <td class="text-center">
+                                    <a href="<?= $aksi ?>?page=aksi_produksi&act=hapusbtk&id=<?= $r['nmr_produksi'] ?>&kd=<?= $r['kode'] ?>"
+                                        class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php
+                                        $no++;
+                                    endwhile; ?>
+                        </tbody>
+                    </table>
                 </div>
-                <hr>
-                <div class="box-body">
-                    <form class="form-horizontal" action="<?php echo $aksi; ?>?page=aksi_produksi&act=btk"
-                        method="POST">
-                        <input type="hidden" class="form-control" name="nmr" value="<?php echo $nmr_produksi; ?>">
-                        <input type="hidden" class="form-control" name="jml" value="<?php echo $jml_produksi; ?>">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" style="margin-left:-48px;">Tenaga Kerja</label>
-                            <div class="col-sm-3 selectContainer" style="margin-left:5px;">
-                                <select class="form-control" name="id_tenaker">
-                                    <option value="0">Tenaga Kerja</option>
-                                    <?php
-                                            $tenaker = mysqli_query($koneksi, "SELECT * FROM tenaker");
-                                            while ($t = mysqli_fetch_assoc($tenaker)) {
-                                                echo "<option value='$t[id_tenaker]'>$t[nm_tenaker]</option>";
-                                            }
-                                            ?>
-
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary active"><i class="glyphicon glyphicon-plus"
-                                    aria-hidden="true"></i> Tambah</button>
-                            <a href=index.php?page=produksi&act=list><button type="button" class="btn btn-danger"><i
-                                        class="glyphicon glyphicon-circle-arrow-left"></i> Kembali</button></a>
-                        </div>
-                    </form>
-                    <?php
-                            echo "<table id = 'example1' class='table table-bordered table-striped table-hover'>";
-
-                            echo "<thead><tr>
-              <th>No</th>
-              <th>Kode</th>
-              <th>Nama</th>
-              <th>Upah</th>
-              <th>Bagian</th>
-              <th>Jumlah</th>
-              <th>Total</th>
-              <th>Aksi</th>
-              </tr></thead><tbody>";
-                            $p = new Paging;
-                            $batas = 4;
-                            $posisi = $p->cariPosisi($batas);
-                            $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BTK' and nmr_produksi='$nmr_produksi' LIMIT $posisi, $batas ");
-                            $no = $posisi + 1;
-                            while ($r = mysqli_fetch_assoc($tampil)) {
-                                echo "<tr><td>$no</td>
-            <td>$r[kode]</td>
-            <td>$r[nama]</td>
-            <td>Rp.  " . number_format($r['harga'], 0, ',', '.') . "</td>
-            <td>$r[keterangan]</td>
-            <td>$r[jumlah]</td>
-            <td>Rp.  " . number_format($r['total'], 0, ',', '.') . "</td>
-            <td><a title = 'Hapus Data' href=$aksi?page=aksi_produksi&act=hapusbtk&id=$r[nmr_produksi]&id2=$r[kode]><button type='button' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></button></a>
-            </td></tr>";
-
-                                $no++;
-                            }
-
-                            echo "</table>";
-                            echo "</li></ul>"; ?>
-                </div>
-
-
             </div>
         </div>
     </div>
@@ -538,97 +530,87 @@ switch ($_GET['act']) {
         }
     ?>
 <ol class="breadcrumb" style="background-color: white;">
-    <li><a href="#">Master Proses</a></li>
-    <li><a href="#">Produksi</a></li>
-    <li><a href="index.php?page=produksi&act=list">Daftar Produksi</a></li>
-    <li class="active">Biaya overhead pabrik untuk produksi <?php echo $nm_produk; ?></li>
+    <li class="breadcrumb-item"><a href="#">Master Proses</a></li>
+    <li class="breadcrumb-item"><a href="#">Produksi</a></li>
+    <li class="breadcrumb-item"><a href="index.php?page=produksi&act=list">Daftar Produksi</a></li>
+    <li class="breadcrumb-item active">Biaya overhead pabrik untuk produksi <?php echo $nm_produk; ?></li>
 </ol>
-<div class="row">
+<div class="row my-4">
     <div class="col-md-12">
-        <div class="col-md-11"></div>
         <div class="box box-info">
             <div class="box-header with-border">
-                <div class="form-inline">
-                    <input type="hidden" class="form-control" name="id_produksi" value="<?php echo $id_produksi; ?>">
+                <form class="form-inline" method="POST" action='<?php echo $aksi; ?>?page=aksi_produksi&act=bop'>
                     <div class="form-group" style="margin-left: 12px;">
-                        <label for="nmr_produksi">Nomor Produksi</label>
-                        <input style="margin-left: 12px;" id="nmr_produksi" name="nmr_produksi" class="form-control"
-                            type="text" value="<?php echo $nmr_produksi; ?>" readonly>
+                        <label for="kd_overp">Overhead</label>
+                        <select class="form-control ml-2" name="kd_overp" required>
+                            <option value="">Pilih Overhead</option>
+                            <?php
+                                    $bb = mysqli_query($koneksi, "SELECT * FROM overhead_pabrik");
+
+                                    while ($rbb = mysqli_fetch_assoc($bb)) {
+
+                                    ?>
+                            <option value="<?php echo $rbb['kd_overp']; ?>"><?php echo $rbb['nm_overp']; ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
-                    <div class="form-group" style="margin-left: 12px;">
-                        <label for="nm_produk">Nama Produk</label>
-                        <input style="margin-left: 12px;" id="nm_produk" name="nm_produk" class="form-control"
-                            type="text" value="<?php echo $nm_produk; ?>" readonly>
-                    </div>
-                    <div class="form-group" style="margin-left: 12px;">
-                        <label for="jml_produksi">Jumlah Produksi</label>
-                        <input style="margin-left: 12px;" id="jml_produksi" name="jml_produksi" class="form-control"
-                            type="text" value="<?php echo $jml_produksi; ?>" readonly>
-                    </div>
+                    <input type="hidden" id="nmr" name="nmr" value="<?php echo $nmr_produksi; ?>">
+                    <input type="hidden" id="jml_produksi" name="jml_produksi" value="<?php echo $jml_produksi; ?>">
+                    <button type="submit" class="btn btn-primary ml-2"><i class="glyphicon glyphicon-plus"
+                            aria-hidden="true"></i>
+                        Tambah</button>
+                    <a href="index.php?page=produksi&act=list" class="btn btn-danger ml-2" role="button"><i
+                            class="glyphicon glyphicon-circle-arrow-left"></i> Kembali</button></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">List Overhead Pabrik</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered datatables-init" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
+                                <th>Biaya</th>
+                                <th>Jumlah</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                    $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BOP' and nmr_produksi='$nmr_produksi'");
+                                    $no = 1;
+                                    while ($r = mysqli_fetch_assoc($tampil)) : ?>
+                            <tr>
+                                <td><?= $no ?></td>
+                                <td><?= $r['kode'] ?></td>
+                                <td><?= $r['nama'] ?></td>
+                                <td><?= 'Rp.' . number_format($r['harga'], 2) ?></td>
+                                <td><?= $r['jumlah'] ?></td>
+                                <td class="text-right">Rp. <?= number_format($r['total'], 2) ?></td>
+                                <td class="text-center">
+                                    <a href="<?= $aksi ?>?page=aksi_produksi&act=hapusbop&id=<?= $r['nmr_produksi'] ?>&kd=<?= $r['kode'] ?>"
+                                        class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php
+                                        $no++;
+                                    endwhile; ?>
+                        </tbody>
+                    </table>
                 </div>
-                <hr>
-                <div class="box-body">
-                    <form class="form-horizontal" action="<?php echo $aksi; ?>?page=aksi_produksi&act=bop"
-                        method="POST">
-                        <input type="hidden" class="form-control" name="nmr" value="<?php echo $nmr_produksi; ?>">
-                        <input type="hidden" class="form-control" name="jml" value="<?php echo $jml_produksi; ?>">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" style="margin-left:-48px;">Jenis Overhead</label>
-                            <div class="col-sm-3 selectContainer" style="margin-left:5px;">
-                                <select class="form-control" name="kd_overp">
-                                    <option value="0">Overhead Pabrik</option>
-                                    <?php
-                                            $op = mysqli_query($koneksi, "SELECT * FROM overhead_pabrik");
-
-                                            while ($rop = mysqli_fetch_assoc($op)) {
-
-                                            ?>
-                                    <option value="<?php echo $rop['kd_overp']; ?>"><?php echo $rop['nm_overp']; ?>
-                                    </option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary active"><i class="glyphicon glyphicon-plus"
-                                    aria-hidden="true"></i> Tambah</button>
-                            <a href=index.php?page=produksi&act=list><button type="button" class="btn btn-danger"><i
-                                        class="glyphicon glyphicon-circle-arrow-left"></i> Kembali</button></a>
-                        </div>
-                    </form>
-                    <?php
-                            echo "<table id = 'example1' class='table table-bordered table-striped table-hover'>";
-
-                            echo "<thead><tr>
-              <th>No</th>
-              <th>Kode</th>
-              <th>Nama</th>
-              <th>Biaya</th>
-              <th>Jumlah</th>
-              <th>Total</th>
-              <th>Aksi</th>
-              </tr></thead><tbody>";
-                            $p = new Paging;
-                            $batas = 4;
-                            $posisi = $p->cariPosisi($batas);
-                            $tampil = mysqli_query($koneksi, "SELECT * FROM detail_produksi WHERE lvl='BOP' and nmr_produksi='$nmr_produksi' LIMIT $posisi, $batas ");
-                            $no = $posisi + 1;
-                            while ($r = mysqli_fetch_assoc($tampil)) {
-                                echo "<tr><td>$no</td>
-            <td>$r[kode]</td>
-            <td>$r[nama]</td>
-            <td>Rp.  " . number_format($r['harga'], 0, ',', '.') . "</td>
-            <td>$r[jumlah]</td>
-            <td>Rp.  " . number_format($r['total'], 0, ',', '.') . "</td>
-            <td><a title = 'Hapus Data' href=$aksi?page=aksi_produksi&act=hapusbop&id=$r[nmr_produksi]&id2=$r[kode]><button type='button' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></button></a>
-            </td></tr>";
-
-                                $no++;
-                            }
-
-                            echo "</table>";
-                            echo "</li></ul>"; ?>
-                </div>
-
-
             </div>
         </div>
     </div>
@@ -659,133 +641,103 @@ switch ($_GET['act']) {
         }
     ?>
 <ol class="breadcrumb" style="background-color: white;">
-    <li><a href="#">Master Proses</a></li>
-    <li><a href="#">Produksi</a></li>
-    <li><a href="index.php?page=produksi&act=list">Daftar Produksi</a></li>
-    <li class="active">Harga Pokok Produksi <?php echo $nm_produk; ?></li>
+    <li class="breadcrumb-item"><a href="#">Master Proses</a></li>
+    <li class="breadcrumb-item"><a href="#">Produksi</a></li>
+    <li class="breadcrumb-item"><a href="index.php?page=produksi&act=list">Daftar Produksi</a></li>
+    <li class="breadcrumb-item active">Harga Pokok Produksi <?php echo $nm_produk; ?></li>
 </ol>
 <div class="row">
-    <div class="col-md-12">
-        <div class="col-md-11"></div>
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-1">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label bg-light-blue-gradient"
-                                    style="text-align: left;">Info Produksi</label>
-
-                            </div>
-                            <div class="form-group">
-                                <p class="col-sm-4 control-label" style="text-align: left;">Bahan Baku</p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><?php echo $bbb; ?></p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;">Bahan Penolong</p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><?php echo $bbp; ?></p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;">Tenaga Kerja</p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><?php echo $btk; ?></p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;">Overhead Pabrik</p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><?php echo $bop; ?></p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <div class="col-sm-4 col-sm-offset-4">
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;">Total By. Produksi</p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><strong><?php echo $hpp; ?></strong></p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;"><strong>HPP</strong></p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><strong><?php echo $hpppi2; ?></strong></p>
-                                </div>
-                            </div>
-                        </form>
+    <div class="col">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Detail Produksi</h6>
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <div class="pill badge-primary text-center">Info Produksi</div>
+                            <table class="table table-striped table-bordered" id="dataTable" width="100%"
+                                cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Biaya Bahan Baku</th>
+                                        <td><?= $bbb ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Biaya Bahan Penolong</th>
+                                        <td><?= $bbp ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Biaya Tenaga Kerja</th>
+                                        <td><?= $btk ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Biaya Overhead</th>
+                                        <td><?= $bop ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> -- </th>
+                                        <td> -- </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Total Biaya</th>
+                                        <td><?= $hpp ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">HPP</th>
+                                        <td><?= $hpppi2 ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label bg-yellow-gradient" style="text-align: left;">Info
-                                    Penjualan</label>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><strong></strong></p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <p class="col-sm-4 control-label" style="text-align: left;"><strong>Kode
-                                        Produksi</strong></p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><strong><?php echo $nmr_produksi; ?></strong></p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;">Nama Produk</p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><?php echo $nm_produk; ?></p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;">Jumlah Produksi</p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><?php echo $jml_produksi; ?> Unit/Item</p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;">HPP</p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static"><?php echo $hpppi2; ?></p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;">% Mark-Up &times; HPP</p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static">&plusmn; <?php echo $ma2; ?></p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;">Target Penjualan</p>
-                                <div class="col-sm-6">
-                                    <p class="form-control-static">&plusmn; <?php echo $tgt2; ?> per Unit/Item</p>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top:-15px;">
-                                <p class="col-sm-4 control-label" style="text-align: left;"><strong>Estimasi
-                                        Laba</strong></p>
-                                <div class="col-sm-4">
-                                    <p class="form-control-static">&plusmn; <strong><?php echo $lb2; ?></strong></p>
-                                </div>
-                            </div>
-                        </form>
+                        <div class="table-responsive">
+                            <div class="pill badge-warning text-center">Info Penjualan</div>
+                            <table class="table table-striped table-bordered" id="dataTable" width="100%"
+                                cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Kode Produksi</th>
+                                        <td><?= $nmr_produksi ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Nama Produksi</th>
+                                        <td><?= $nm_produk ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Jumlah Produksi</th>
+                                        <td><?= $jml_produksi ?> Unit/item</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">HPP</th>
+                                        <td><?= $hpppi2 ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">&#37; Mark-up x HPP</th>
+                                        <td>&plusmn; <?= $ma2 ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Terget Penjualan</th>
+                                        <td>&plusmn; <?= $tgt2 ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Estimasi Laba</th>
+                                        <th>&plusmn; <?= $lb2 ?></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col text-center"><a href="?page=produksi&act=list" role="button"
+                            class="btn btn-danger">Kembali</a></div>
                 </div>
             </div>
         </div>
-        <a title='Kembali' href=?page=produksi&act=list><button type='button' class='btn btn-active'><span
-                    class='glyphicon glyphicon-arrow-left'> Kembali</span></button></a>
     </div>
-
-
-</div>
-</div>
-</div>
 </div>
 <?php
         break;
