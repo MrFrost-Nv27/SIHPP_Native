@@ -55,6 +55,9 @@
             case 'laporan':
                 include 'modul/laporan/laporan.php';
                 break;
+            case 'jurnal':
+                include 'modul/jurnal/jurnal.php';
+                break;
         }
     }
     ?>

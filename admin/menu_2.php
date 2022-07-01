@@ -20,4 +20,7 @@
     <a class="nav-link" href="index.php?page=laporan&act=list">
         <i class="fas fa-fw fa-file-alt"></i>
         <span>Laporan</span></a>
+    <a class="nav-link" href="index.php?page=jurnal">
+        <i class="fas fa-fw fa-book"></i>
+        <span>Jurnal Umum</span></a>
 </li>
