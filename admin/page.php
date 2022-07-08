@@ -58,6 +58,12 @@
             case 'jurnal':
                 include 'modul/jurnal/jurnal.php';
                 break;
+            case 'bom':
+                include 'modul/bom/bom.php';
+                break;
+            case 'bom_detail':
+                include 'modul/bom/bom_detail.php';
+                break;
         }
     }
     ?>

@@ -25,13 +25,18 @@ switch ($_GET['act']) {
                             <div class="form-group" style="margin-left: 12px;">
                                 <label for="nm_produk">Nama Produk</label>
                                 <select class="form-control" name="nm_produk" id="nm_produk" style="margin-left: 12px;">
-                                    <option value="Kusen Pintu">Kusen Pintu</option>
-                                    <option value="Meja">Meja</option>
-                                    <option value="Kursi">Kursi</option>
-                                    <option value="Kusen Jendela">Kusen Jendela</option>
-                                    <option value="Jendela">Jendela</option>
-                                    <option value="Pintu">Pintu</option>
-                                    <option value="Lemari">Lemari</option>
+                                    <?php
+                                    $prdk = mysqli_query($koneksi, "SELECT * FROM produk");
+                                    // if $prdk is empty, do nothing
+                                    if (mysqli_num_rows($prdk) > 0) {
+                                        while ($prdk_row = mysqli_fetch_assoc($prdk)) {
+                                            echo "<option value='" . $prdk_row['nama_produk'] . "'>" . $prdk_row['nama_produk'] . "</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=''>Tidak ada data</option>";
+                                    }
+
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group" style="margin-left: 12px;">
