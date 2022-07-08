@@ -121,6 +121,7 @@ switch ($_GET['act']) {
                                                 <?php if ($bb['bop'] > 0) : ?>
                                                     <td class="text-right">
                                                         <a href="?page=produksi&act=bop&id=<?= $bb['id_produksi'] ?>">
+                                                        
                                                             Rp. <?= number_format($bb['bop'], 2) ?>
                                                     </td>
                                                 <?php else : ?>

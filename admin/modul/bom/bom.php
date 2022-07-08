@@ -2,10 +2,27 @@
 // insert data to database with method post
 if (isset($_POST['tambah'])) {
     $nama = $_POST['nama_produk'];
-    $keterangan = $_POST['ket_produk'];
+    // $keterangan = $_POST['ket_produk'];
+    // code generator if old value >0 + 1
+    $sql = "SELECT kode FROM produk ORDER BY kode DESC LIMIT 1";
+
+    $result = mysqli_query($koneksi, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $kode = $row['kode'];
+    // cek kode terakhir
+    if ($kode) {
+        $kode = substr($kode, 3, 3);
+        $kode = (int) $kode;
+        $kode = $kode + 1;
+        $kode = str_pad($kode, 3, "0", STR_PAD_LEFT);
+        $kode = "DPR" . $kode;
+    } else {
+        $kode = "DPR001";
+    }
+
 
     $datetime = date("Y-m-d H:i:s");
-    $query = "INSERT INTO produk (id,nama_produk,ket_produk,created_at ) VALUES ('', '$nama', '$keterangan', '$datetime')";
+    $query = "INSERT INTO produk (id,kode,nama_produk,created_at ) VALUES ('','$kode','$nama', '$datetime')";
     $result = mysqli_query($koneksi, $query);
     if ($result) {
         echo "<script>alert('Data berhasil ditambahkan!');</script>";
@@ -18,10 +35,10 @@ if (isset($_POST['tambah'])) {
 
     $id = $_POST['id_produk'];
     $nama = $_POST['nama_produk'];
-    $keterangan = $_POST['ket_produk'];
+    // $keterangan = $_POST['ket_produk'];
 
     //   update
-    $query = "UPDATE produk SET nama_produk = '$nama', ket_produk = '$keterangan' WHERE id = '$id'";
+    $query = "UPDATE produk SET nama_produk = '$nama' WHERE id = '$id'";
 
     $result = mysqli_query($koneksi, $query);
 
@@ -75,8 +92,9 @@ if ($_GET['act'] == 'delete') {
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Kode Produk</th>
                             <th>Nama Produk</th>
-                            <th>Keterangan</th>
+                            <!-- <th>Keterangan</th> -->
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -89,8 +107,9 @@ if ($_GET['act'] == 'delete') {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<tr>";
                                 echo "<td>" . $i . "</td>";
+                                echo "<td>" . $row['kode'] . "</td>";
                                 echo "<td>" . $row['nama_produk'] . "</td>";
-                                echo "<td>" . $row['ket_produk'] . "</td>";
+                               
                                 echo "<td>
                             <button type='button' class='btn btn-editproduk btn-warning' data-toggle='modal' data-target='#modal-edit' data-id='" . $row['id'] . "' data-nama='" . $row['nama_produk'] . "' data-ket='" . $row['ket_produk'] . "'>
                             Edit
@@ -139,11 +158,11 @@ if ($_GET['act'] == 'delete') {
                         <label for="nama_bom">Nama Produk</label>
                         <input type="text" class="form-control" id="nama_produk" name="nama_produk" placeholder="Nama produk">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="ket_produk">Keterangan</label>
                         <input type="text" class="form-control" id="ket_produk" name="ket_produk" placeholder="Keterangan">
 
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -173,11 +192,11 @@ if ($_GET['act'] == 'delete') {
                         <input type="text" class="form-control" id="modal_id_produk" name="id_produk" hidden>
                         <input type="text" class="form-control" id="modal_nama_produk" name="nama_produk">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="ket_produk">Keterangan</label>
                         <input type="text" class="form-control" id="modal_ket_produk" name="ket_produk" placeholder="Keterangan">
 
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

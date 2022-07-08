@@ -72,9 +72,9 @@ if (isset($_POST['hapus'])) {
 <div class="row mb-3">
     <div class="card">
         <div class="card-body">
-           <h3 class="text-center text-bold">
-            Billing of Material (BOM)
-           </h3>
+            <h3 class="text-center text-bold">
+                Billing of Material (BOM)
+            </h3>
 
         </div>
     </div>
@@ -91,6 +91,12 @@ if (isset($_POST['hapus'])) {
 
                 ?>
                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="kode">Kode Produk</label>
+                            <input type="text" class="form-control" id="kode" name="kode" value="<?php echo $data['kode']; ?>" readonly>
+                        </div>
+                    </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
@@ -98,12 +104,7 @@ if (isset($_POST['hapus'])) {
                             <input type="text" class="form-control" id="nama_produk" name="nama_produk" value="<?php echo $data['nama_produk']; ?>" readonly>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan</label>
-                            <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo $data['ket_produk']; ?>" readonly>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -186,24 +187,19 @@ if (isset($_POST['hapus'])) {
         <!-- table -->
         <div class="card">
             <div class="card-body">
-                <!-- flash data -->
-                <?php if (isset($_SESSION['flashdata'])) : ?>
-                    <?php if ($_SESSION['flashdata']['type'] == 'success') : ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?php echo $_SESSION['flashdata']['message']; ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php else : ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <?php echo $_SESSION['flashdata']['message']; ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php endif; ?>
-                <?php endif; ?>
+
+                <?php
+                //    session start
+                if (isset($_SESSION['flashdata'])) {
+                    $type = $_SESSION['flashdata']['type'];
+                    $message = $_SESSION['flashdata']['message'];
+                    echo "<div class='alert alert-$type'>$message</div>";
+                    unset($_SESSION['flashdata']);
+                }
+                ?>
+
+
+
                 <table class="table table-bordered datatables-init">
                     <thead>
                         <tr>

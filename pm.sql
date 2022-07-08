@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Jul 2022 pada 20.27
+-- Waktu pembuatan: 08 Jul 2022 pada 21.25
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -57,6 +57,13 @@ CREATE TABLE `bahan_penolong` (
   `satuan_bp` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `bahan_penolong`
+--
+
+INSERT INTO `bahan_penolong` (`id_bp`, `kd_bp`, `nm_bp`, `hrg_bp`, `satuan_bp`) VALUES
+(1, 'BP1', 'hancaplas', 2131, 'pcs');
+
 -- --------------------------------------------------------
 
 --
@@ -77,7 +84,25 @@ CREATE TABLE `detail_produk` (
 --
 
 INSERT INTO `detail_produk` (`id`, `kode`, `id_produk`, `id_bb`, `jumlah`, `satuan`) VALUES
-(11, 'DPR001', '1', '1', 1, 'kg');
+(16, 'DPR001', '1', '', 0, ''),
+(17, 'DPR002', '1', '', 0, ''),
+(18, 'DPR003', '1', '', 0, ''),
+(19, 'DPR004', '1', '', 0, ''),
+(20, 'DPR005', '1', '', 0, ''),
+(21, 'DPR006', '1', '', 0, ''),
+(22, 'DPR007', '1', '', 0, ''),
+(23, 'DPR008', '1', '', 0, ''),
+(24, 'DPR009', '1', '', 0, ''),
+(25, 'DPR010', '1', '', 0, ''),
+(26, 'DPR011', '1', '', 0, ''),
+(27, 'DPR012', '1', '', 0, ''),
+(28, 'DPR013', '1', '', 0, ''),
+(29, 'DPR014', '1', '', 0, ''),
+(30, 'DPR015', '1', '', 0, ''),
+(32, 'DPR016', '1', '', 0, ''),
+(33, 'DPR017', '1', '', 0, ''),
+(34, 'DPR018', '1', '', 0, ''),
+(35, 'DPR019', '1', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -98,6 +123,13 @@ CREATE TABLE `detail_produksi` (
   `lvl` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `detail_produksi`
+--
+
+INSERT INTO `detail_produksi` (`tanggal`, `nmr_produksi`, `jml_produksi`, `kode`, `nama`, `harga`, `keterangan`, `jumlah`, `total`, `lvl`) VALUES
+('2022-07-08', 1657298257, 3, 'BB1', 'gula', 7000, 'kg', 1, 7000, 'BBB');
+
 -- --------------------------------------------------------
 
 --
@@ -112,6 +144,13 @@ CREATE TABLE `overhead_pabrik` (
   `tgl_overp` date NOT NULL,
   `id_overp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `overhead_pabrik`
+--
+
+INSERT INTO `overhead_pabrik` (`kd_overp`, `nm_overp`, `by_overp`, `ket_overp`, `tgl_overp`, `id_overp`) VALUES
+('BOP1', '', 2000, 'dd', '2022-07-08', 1);
 
 -- --------------------------------------------------------
 
@@ -134,8 +173,8 @@ CREATE TABLE `persediaan_bahan_baku` (
 --
 
 INSERT INTO `persediaan_bahan_baku` (`tgl_pb`, `kd_pb`, `nm_pb`, `sat_pb`, `hrg_pb`, `stok_pb`, `tot_pb`) VALUES
-('2022-07-08', 'BB1', 'gula', 'kg', 7000, 0, 0),
-('2022-07-08', 'BB2', 'kopi biasa', 'pcs', 5000, 0, 0);
+('2022-07-08', 'BB1', 'gula', 'kg', 7000, 99, 700000),
+('2022-07-08', 'BB2', 'kopi biasa', 'pcs', 5000, 100, 500000);
 
 -- --------------------------------------------------------
 
@@ -153,6 +192,13 @@ CREATE TABLE `persediaan_bahan_penolong` (
   `tot_pb` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `persediaan_bahan_penolong`
+--
+
+INSERT INTO `persediaan_bahan_penolong` (`tgl_pb`, `kd_pb`, `nm_pb`, `sat_pb`, `hrg_pb`, `stok_pb`, `tot_pb`) VALUES
+('2022-07-08', 'BP1', 'hancaplas', 'pcs', 2131, 100, 213100);
+
 -- --------------------------------------------------------
 
 --
@@ -161,8 +207,8 @@ CREATE TABLE `persediaan_bahan_penolong` (
 
 CREATE TABLE `produk` (
   `id` int(12) NOT NULL,
+  `kode` varchar(255) NOT NULL,
   `nama_produk` varchar(63) NOT NULL,
-  `ket_produk` varchar(100) NOT NULL,
   `created_at` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -170,8 +216,8 @@ CREATE TABLE `produk` (
 -- Dumping data untuk tabel `produk`
 --
 
-INSERT INTO `produk` (`id`, `nama_produk`, `ket_produk`, `created_at`) VALUES
-(1, 'Kopi Luak', 'mini drink', '2022-07-08 18:35:54.000000');
+INSERT INTO `produk` (`id`, `kode`, `nama_produk`, `created_at`) VALUES
+(3, 'DPR002', 'Kopi kapal api yang ga pake gula', '2022-07-08 21:23:22.000000');
 
 -- --------------------------------------------------------
 
@@ -200,7 +246,7 @@ CREATE TABLE `produksi` (
 
 INSERT INTO `produksi` (`id_produksi`, `nmr_produksi`, `nm_produk`, `jml_produksi`, `bbb`, `bbp`, `btk`, `bop`, `hpp`, `tgl_produksi`, `periode`, `tahun`) VALUES
 (1, 1657298231, '1', 1, 0, 0, 0, 0, 0, '2022-07-08', 'Juli', 2022),
-(2, 1657298257, 'Kopi Luak', 3, 0, 0, 0, 0, 0, '2022-07-08', 'Juli', 2022);
+(2, 1657298257, 'Kopi Luak', 3, 7000, 0, 0, 0, 7000, '2022-07-08', 'Juli', 2022);
 
 -- --------------------------------------------------------
 
@@ -306,25 +352,25 @@ ALTER TABLE `bahan_baku`
 -- AUTO_INCREMENT untuk tabel `bahan_penolong`
 --
 ALTER TABLE `bahan_penolong`
-  MODIFY `id_bp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_bp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_produk`
 --
 ALTER TABLE `detail_produk`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `overhead_pabrik`
 --
 ALTER TABLE `overhead_pabrik`
-  MODIFY `id_overp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_overp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `produksi`

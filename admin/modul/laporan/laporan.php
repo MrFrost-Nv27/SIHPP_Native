@@ -54,7 +54,8 @@ switch ($_GET['act']) {
                     <td>Bahan Baku</td>
                     <td><?php echo $jml_bb ?></td>
                     <td><?php echo $rbb['totalbb2'] ?> Unit</td>
-                    <td>Rp. <?php echo number_format($rbb['totalbb1'], 0, ',', '.') ?></td>
+                    <td>Rp. <?php
+                     echo number_format($rbb['totalbb1'], 0, ',', '.') ?></td>
                     <td><a href="index.php?page=laporan&act=cbb" target=""><button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a></td>
                   </tr>
                   <tr>
@@ -62,7 +63,12 @@ switch ($_GET['act']) {
                     <td>Bahan Penolong</td>
                     <td><?php echo $jml_bp ?></td>
                     <td><?php echo $rbp['totalbb2'] ?> Item</td>
-                    <td>Rp. <?php echo number_format($rbp['totalbb1'], 0, ',', '.') ?></td>
+                    <td>Rp. <?php
+                    if($rbp['totalbb1'] == null){
+                      echo "0";
+                    }else{
+                      echo number_format($rbp['totalbb1'], 0, ',', '.');
+                    }?></td>
                     <td><a href=index.php?page=laporan&act=cbp><button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a></td>
                   </tr>
                   <tr>
@@ -76,14 +82,24 @@ switch ($_GET['act']) {
                     <td>3</td>
                     <td>Tenaga Kerja</td>
                     <td><?php echo $jml_tk ?></td>
-                    <td colspan="2">Rp. <?php echo number_format($rtk['totalbb1'], 0, ',', '.') ?></td>
+                    <td colspan="2">Rp. <?php if ($rtk['totalbb1'] == NULL) {
+                                            echo "0";
+                                          } else {
+                                            echo number_format($rtk['totalbb1'], 0, ',', '.');
+                                          } ?></td>
                     <td><a href=index.php?page=laporan&act=ctk><button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a></td>
                   </tr>
                   <tr>
                     <td>4</td>
                     <td>Overhead Pabrik</td>
                     <td><?php echo $jml_op ?></td>
-                    <td colspan="2">Rp. <?php echo number_format($rop['totalbb1'], 0, ',', '.') ?></td>
+                    <td colspan="2">
+                      Rp. <?php
+                              if ($rop['totalbb1'] == NULL) {
+                                echo "0";
+                              } else {
+                                echo number_format($rop['totalbb1'], 0, ',', '.');
+                              } ?></td>
                     <td><a href=index.php?page=laporan&act=cop><button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a></td>
                   </tr>
                   <tr>
