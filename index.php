@@ -37,12 +37,13 @@ if ($_SESSION) {
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
+                            <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+                            <div class="col-lg-12 container">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Log In</h1>
-                                        <p class="text-capitalize ">Masukan Username dan Password dengan benar !</p>
+                                        <h3 class="text-success">SISTEM INFORMASI HARGA POKOK PRODUKSI</h3>
+                                        <h1 class="h4 text-gray-900 mb-4 fw-4">Log In</h1>
+                                        <!-- <p class="text-capitalize ">Masukan Username dan Password dengan benar !</p> -->
                                     </div>
                                     <?php
                                     if (isset($_POST['login'])) {
@@ -98,9 +99,9 @@ if ($_SESSION) {
                                             Login
                                         </button>
                                     </form>
-                                    <p class="text-center mt-4 mb-0">
-                                        Nais Rachmawati &copy; 2022
-                                    </p>
+                                    <!-- <p class="text-center mt-4 mb-0">
+                                        Anggaegae &copy; 2022
+                                    </p> -->
                                 </div>
                             </div>
                         </div>

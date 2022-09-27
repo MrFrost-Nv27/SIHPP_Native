@@ -460,63 +460,67 @@ switch ($_GET['act']) {
 
   case "lhpp":
   ?>
+    <div class="card">
+      <div class="card-body">
 
-    <div class="row ">
-      <div class="col-md-12">
-        <div class="col-md-11"></div>
-        <div class="box box-info">
-          <div class="box-header with-border">
-            <div class="box-body">
-
-
-              <table id="example1" class="table datatables-init table-bordered mt-3 table-striped">
-                <caption style="caption-side: top">Data Laporan HPP</caption>
-
-                <thead>
-                  <tr>
-                    <td><strong>No</strong></td>
-                    <td><strong>Nomor Produksi</strong></td>
-                    <td><strong>Nama Produk</strong></td>
-                    <td><strong>Biaya</strong></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $sql = mysqli_query($koneksi, "SELECT *, SUM(hpp) AS totalBiaya FROM produksi WHERE bbb !='0' and bbp !='0'and bop!='0' and btk !='0' and hpp!='0' GROUP BY nmr_produksi");
-                  $total = 0;
-                  $no = 0;
-                  while ($row = mysqli_fetch_assoc($sql)) {
-                    $no++;
-                  ?>
-                    <tr>
-                      <td><?= $no ?></td>
-                      <td><?= $row['nmr_produksi'] ?></td>
-                      <td><?= $row['nm_produk'] ?></td>
-                      <td>Rp. <?= number_format($row['totalBiaya'], 0, ',', '.') ?></td>
+        <div class="row ">
+          <div class="col-md-12">
+            <div class="col-md-11"></div>
+            <div class="box box-info">
+              <div class="box-header with-border">
+                <div class="box-body">
 
 
-                    </tr>
-                  <?php
-                    $total += $row['totalBiaya'];
-                  }
-                  ?>
-                </tbody>
-                <tfoot>
-                  <tfoot>
-                    <tr>
-                      <td id="totaltext" colspan="3" class="text-end">TOTAL :</td>
-                      <td id="totalval">Rp. <?= number_format($total, 0, ',', '.') ?></td>
-                    </tr>
-                  </tfoot>
+                  <table id="example1" class="table datatables-init table-bordered mt-3 table-striped">
+                    <caption style="caption-side: top">Data Laporan HPP</caption>
 
-                </tfoot>
-              </table>
+                    <thead>
+                      <tr>
+                        <td><strong>No</strong></td>
+                        <td><strong>Nomor Produksi</strong></td>
+                        <td><strong>Nama Produk</strong></td>
+                        <td><strong>Biaya</strong></td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      $sql = mysqli_query($koneksi, "SELECT *, SUM(hpp) AS totalBiaya FROM produksi WHERE bbb !='0' and bbp !='0'and bop!='0' and btk !='0' and hpp!='0' GROUP BY nmr_produksi");
+                      $total = 0;
+                      $no = 0;
+                      while ($row = mysqli_fetch_assoc($sql)) {
+                        $no++;
+                      ?>
+                        <tr>
+                          <td><?= $no ?></td>
+                          <td><?= $row['nmr_produksi'] ?></td>
+                          <td><?= $row['nm_produk'] ?></td>
+                          <td>Rp. <?= number_format($row['totalBiaya'], 0, ',', '.') ?></td>
+
+
+                        </tr>
+                      <?php
+                        $total += $row['totalBiaya'];
+                      }
+                      ?>
+                    </tbody>
+                    <tfoot>
+                      <tfoot>
+                        <tr>
+                          <td id="totaltext" colspan="3" class="text-end">TOTAL :</td>
+                          <td id="totalval">Rp. <?= number_format($total, 0, ',', '.') ?></td>
+                        </tr>
+                      </tfoot>
+
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
-
 
 <?php
     break;
