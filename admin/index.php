@@ -63,11 +63,13 @@ $data_jumlah = [
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../vendor/datatables/datatables.min.css" rel="stylesheet">
+    <!-- <link href="../vendor/datatables/datatables.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-html5-2.2.3/b-print-2.2.3/r-2.3.0/sc-2.0.7/datatables.min.css" />
 
 </head>
 
@@ -216,7 +218,9 @@ $data_jumlah = [
         </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -227,13 +231,35 @@ $data_jumlah = [
 
     <!-- Page level plugins -->
     <script src="../vendor/chart.js/Chart.min.js"></script>
-    <script src="../vendor/datatables/datatables.min.js"></script>
+    <!-- <script src="../vendor/datatables/datatables.min.js"></script> -->
     <script src="../js/main.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-html5-2.2.3/b-print-2.2.3/r-2.3.0/sc-2.0.7/datatables.min.js">
+    </script>
+    <script src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js"></script>
 
     <script>
         $(document).ready(function() {
             $('.datatables-init').DataTable({
-                responsive: true
+                responsive: true,
+                dom: 'Bfrtip',
+               buttons: [
+      "copyHtml5",
+      {
+        title: "Laporan",
+        extend: "excelHtml5",
+        messageBottom: `${$("#totaltext").text()} ${$("#totalval").text()}`,
+      },
+      {
+        title: "Laporan",
+        extend: "pdfHtml5",
+        messageBottom: `${$("#totaltext").text()} ${$("#totalval").text()}`,
+      },
+      {
+        title: "Laporan",
+        extend: "print",
+        messageBottom: `${$("#totaltext").text()} ${$("#totalval").text()}`,
+      },
+    ],
             });
         });
     </script>

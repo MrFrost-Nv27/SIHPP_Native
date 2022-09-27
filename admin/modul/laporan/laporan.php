@@ -55,7 +55,7 @@ switch ($_GET['act']) {
                     <td><?php echo $jml_bb ?></td>
                     <td><?php echo $rbb['totalbb2'] ?> Unit</td>
                     <td>Rp. <?php
-                     echo number_format($rbb['totalbb1'], 0, ',', '.') ?></td>
+                            echo number_format($rbb['totalbb1'], 0, ',', '.') ?></td>
                     <td><a href="index.php?page=laporan&act=cbb" target=""><button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a></td>
                   </tr>
                   <tr>
@@ -64,11 +64,11 @@ switch ($_GET['act']) {
                     <td><?php echo $jml_bp ?></td>
                     <td><?php echo $rbp['totalbb2'] ?> Item</td>
                     <td>Rp. <?php
-                    if($rbp['totalbb1'] == null){
-                      echo "0";
-                    }else{
-                      echo number_format($rbp['totalbb1'], 0, ',', '.');
-                    }?></td>
+                            if ($rbp['totalbb1'] == null) {
+                              echo "0";
+                            } else {
+                              echo number_format($rbp['totalbb1'], 0, ',', '.');
+                            } ?></td>
                     <td><a href=index.php?page=laporan&act=cbp><button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a></td>
                   </tr>
                   <tr>
@@ -83,10 +83,10 @@ switch ($_GET['act']) {
                     <td>Tenaga Kerja</td>
                     <td><?php echo $jml_tk ?></td>
                     <td colspan="2">Rp. <?php if ($rtk['totalbb1'] == NULL) {
-                                            echo "0";
-                                          } else {
-                                            echo number_format($rtk['totalbb1'], 0, ',', '.');
-                                          } ?></td>
+                                          echo "0";
+                                        } else {
+                                          echo number_format($rtk['totalbb1'], 0, ',', '.');
+                                        } ?></td>
                     <td><a href=index.php?page=laporan&act=ctk><button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a></td>
                   </tr>
                   <tr>
@@ -95,11 +95,11 @@ switch ($_GET['act']) {
                     <td><?php echo $jml_op ?></td>
                     <td colspan="2">
                       Rp. <?php
-                              if ($rop['totalbb1'] == NULL) {
-                                echo "0";
-                              } else {
-                                echo number_format($rop['totalbb1'], 0, ',', '.');
-                              } ?></td>
+                          if ($rop['totalbb1'] == NULL) {
+                            echo "0";
+                          } else {
+                            echo number_format($rop['totalbb1'], 0, ',', '.');
+                          } ?></td>
                     <td><a href=index.php?page=laporan&act=cop><button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a></td>
                   </tr>
                   <tr>
@@ -114,20 +114,28 @@ switch ($_GET['act']) {
                     <td>Produksi</td>
                     <td><?php echo $jml_hpp ?></td>
                     <td colspan="3">
-                    <form action="?page=laporan&act=hpp" method="POST" class="form-inline">
-                      <select class="form-control" name="id_produksi" style="width:300px;">
-                        <option value="0">Pilih Nomor</option>
-                        <?php
-                        $produksi = mysqli_query($koneksi, "SELECT * FROM produksi");
-                        while ($r = mysqli_fetch_assoc($produksi)) {
-                        $nm= $r['nm_produk'];
-                        ?>
-                          <option value="<?php echo $r['nmr_produksi']; ?>"><?php echo $r['nmr_produksi'] ." / ". $nm; ?></option>
-                        <?php } ?>
-                      </select>                
-                      <a style="margin-left:174px;"><button type="submit" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a>
-                  </form>
-                  </td>
+                      <form action="?page=laporan&act=hpp" method="POST" class="form-inline">
+                        <select class="form-control" name="id_produksi" style="width:300px;">
+                          <option value="0">Pilih Nomor</option>
+                          <?php
+                          $produksi = mysqli_query($koneksi, "SELECT * FROM produksi");
+                          while ($r = mysqli_fetch_assoc($produksi)) {
+                            $nm = $r['nm_produk'];
+                          ?>
+                            <option value="<?php echo $r['nmr_produksi']; ?>"><?php echo $r['nmr_produksi'] . " / " . $nm; ?></option>
+                          <?php } ?>
+                        </select>
+                        <a style="margin-left:174px;"><button type="submit" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i> Cetak</button></a>
+                      </form>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>6</td>
+                    <td colspan="4">Laporan HPP</td>
+                    <td><a href=index.php?page=laporan&act=lhpp><button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-print"></i>Cetak</button></a></td>
+
+
                   </tr>
               </table>
 
@@ -319,11 +327,11 @@ switch ($_GET['act']) {
         </div>
       </div>
     </div>
-<?php
-  break;
+  <?php
+    break;
 
-case "cop":
-?>
+  case "cop":
+  ?>
     <script>
       window.print();
     </script>
@@ -378,67 +386,138 @@ case "cop":
         </div>
       </div>
     </div>
-<?php
+  <?php
     break;
 
-case "hpp":
+  case "hpp":
   ?>
-    <script>
+    <!-- <script>
       window.print();
-    </script>
-    <div class="row">
+    </script> -->
+    <div class="row ">
       <div class="col-md-12">
         <div class="col-md-11"></div>
         <div class="box box-info">
           <div class="box-header with-border">
             <div class="box-body">
-              <?php
-              $sql = mysqli_query($koneksi, "SELECT tanggal, nmr_produksi, jml_produksi, kode, nama, SUM(total) AS total1 FROM detail_produksi WHERE nmr_produksi='$_POST[id_produksi]' group by kode");
-              echo '
-                  <table  id = "example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <td><strong>No</strong></td>
-                        <td><strong>Tanggal</strong></td>
-                        <td><strong>Nomor Produksi</strong></td>
-                        <td><strong>Jumlah Produksi</strong></td>
-                        <td><strong>Kode Terkait</strong></td>
-                        <td><strong>Nama Kode</strong></td>
-                        <td><strong>Total Biaya</strong></td>
-                      </tr>
-                    </thead>
-                    <tbody>';
-              $total = 0;
-              $no = 0;
-              while ($row = mysqli_fetch_assoc($sql)) {
-                $no++;
-                echo '
-                    <tr>
-                      <td>' . $no . '</td>
-                          <td>' . $row['tanggal'] . '</td>
-                          <td>' . $row['nmr_produksi'] . '</td>
-                          <td>' . $row['jml_produksi'] . '</td>
-                          <td>' . $row['kode'] . '</td>
-                          <td>' . $row['nama'] . '</td>
-                          <td>Rp. ' . number_format($row['total1'], 0, ',', '.') . '</td>
-                          ';
-                echo '
-                  </tr>';
-                $total += $row['total1'];
-              }
-              echo '
+
+
+              <table id="example1" class="table datatables-init table-bordered mt-3 table-striped">
+                <caption style="caption-side: top">Data Laporan</caption>
+
+                <thead>
                   <tr>
-                    <td colspan="6"><strong>TOTAL</strong></td>
-                    <td><strong>Rp. ' . number_format($total, 0, ',', '.') . '</strong></td>
+                    <td><strong>No</strong></td>
+                    <td><strong>Tanggal</strong></td>
+                    <td><strong>Nomor Produksi</strong></td>
+                    <td><strong>Jumlah Produksi</strong></td>
+                    <td><strong>Kode Terkait</strong></td>
+                    <td><strong>Nama Kode</strong></td>
+                    <td><strong>Total Biaya</strong></td>
                   </tr>
-                  </tbody>
-                  </table>';
-              ?>
+                </thead>
+                <tbody>
+                  <?php
+                  $sql = mysqli_query($koneksi, "SELECT tanggal, nmr_produksi, jml_produksi, kode, nama, SUM(total) AS total1 FROM detail_produksi WHERE nmr_produksi='$_POST[id_produksi]' group by kode");
+                  $total = 0;
+                  $no = 0;
+                  while ($row = mysqli_fetch_assoc($sql)) {
+                    $no++;
+                  ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row['tanggal'] ?></td>
+                      <td><?= $row['nmr_produksi'] ?></td>
+                      <td><?= $row['jml_produksi'] ?></td>
+                      <td><?= $row['kode'] ?></td>
+                      <td><?= $row['nama'] ?></td>
+                      <td>Rp. <?= number_format($row['total1'], 0, ',', '.') ?></td>
+
+
+                    </tr>
+                  <?php
+                    $total += $row['total1'];
+                  }
+                  ?>
+                </tbody>
+                <tfoot>
+                  <tfoot>
+                    <tr>
+                      <td id="totaltext" colspan="6" class="text-end">TOTAL :</td>
+                      <td id="totalval">Rp. <?= number_format($total, 0, ',', '.') ?></td>
+                    </tr>
+                  </tfoot>
+
+                </tfoot>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
+  <?php
+    break;
+
+  case "lhpp":
+  ?>
+
+    <div class="row ">
+      <div class="col-md-12">
+        <div class="col-md-11"></div>
+        <div class="box box-info">
+          <div class="box-header with-border">
+            <div class="box-body">
+
+
+              <table id="example1" class="table datatables-init table-bordered mt-3 table-striped">
+                <caption style="caption-side: top">Data Laporan HPP</caption>
+
+                <thead>
+                  <tr>
+                    <td><strong>No</strong></td>
+                    <td><strong>Nomor Produksi</strong></td>
+                    <td><strong>Nama Produk</strong></td>
+                    <td><strong>Biaya</strong></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $sql = mysqli_query($koneksi, "SELECT *, SUM(hpp) AS totalBiaya FROM produksi WHERE bbb !='0' and bbp !='0'and bop!='0' and btk !='0' and hpp!='0' GROUP BY nmr_produksi");
+                  $total = 0;
+                  $no = 0;
+                  while ($row = mysqli_fetch_assoc($sql)) {
+                    $no++;
+                  ?>
+                    <tr>
+                      <td><?= $no ?></td>
+                      <td><?= $row['nmr_produksi'] ?></td>
+                      <td><?= $row['nm_produk'] ?></td>
+                      <td>Rp. <?= number_format($row['totalBiaya'], 0, ',', '.') ?></td>
+
+
+                    </tr>
+                  <?php
+                    $total += $row['totalBiaya'];
+                  }
+                  ?>
+                </tbody>
+                <tfoot>
+                  <tfoot>
+                    <tr>
+                      <td id="totaltext" colspan="3" class="text-end">TOTAL :</td>
+                      <td id="totalval">Rp. <?= number_format($total, 0, ',', '.') ?></td>
+                    </tr>
+                  </tfoot>
+
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 <?php
     break;
 }
