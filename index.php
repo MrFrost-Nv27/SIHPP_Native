@@ -38,10 +38,13 @@ if ($_SESSION) {
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
-                            <div class="col-lg-12 container">
+                            <div class="col-lg-10 container">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h3 class="text-success">SISTEM INFORMASI HARGA POKOK PRODUKSI</h3>
+                                        <!-- img logo -->
+                                        <img src="img/logo.png" alt="logo" width="100px">
+
+                                        <h4 class="text-success">SISTEM INFORMASI HARGA POKOK PRODUKSI</h4>
                                         <h1 class="h4 text-gray-900 mb-4 fw-4">Log In</h1>
                                         <!-- <p class="text-capitalize ">Masukan Username dan Password dengan benar !</p> -->
                                     </div>
